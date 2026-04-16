@@ -4,13 +4,7 @@ import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
 
 const Logo = () => (
-  <div className="flex items-center gap-2">
-    <div className="relative w-10 h-10 flex items-center justify-center">
-      <div className="absolute inset-0 border-[3px] border-l-[#d32f2f] border-t-[#d32f2f] border-r-transparent border-b-[#d32f2f] rounded-full transform -rotate-45"></div>
-      <div className="absolute inset-1 border-[2px] border-l-[#d32f2f] border-b-[#d32f2f] border-r-transparent border-t-transparent rounded-full transform -rotate-12"></div>
-    </div>
-    <span className="text-white font-bold text-2xl tracking-widest font-sans px-2">RAPID</span>
-  </div>
+  <img src="/Logo.png" alt="RAPID Logo" className="h-12 w-auto" />
 );
 
 export default function Layout() {
@@ -25,9 +19,6 @@ export default function Layout() {
     { name: 'Home', path: '/' },
     { name: 'Industries', path: '/industries' },
     { name: 'Services', path: '/services' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Career', path: '/career' },
-    { name: 'Blog', path: '/blog' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
@@ -131,9 +122,6 @@ export default function Layout() {
             <div>
               <h3 className="text-white font-bold text-lg mb-6 uppercase tracking-wider text-sm">Quick Links</h3>
               <ul className="space-y-3 text-sm">
-                <li><Link to="/about" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> About Us</Link></li>
-                <li><Link to="/career" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Careers</Link></li>
-                <li><Link to="/blog" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Blog</Link></li>
                 <li><Link to="/contact" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Contact Us</Link></li>
               </ul>
             </div>
