@@ -16,6 +16,14 @@ export default function Home() {
     { icon: <Smile className="w-6 h-6 text-amber-500" />, value: '5K+', label: 'Customers' },
   ];
 
+  const testimonials = [
+    { name: 'Sophia Anderson', role: 'CEO', text: 'The bilingual support in Rapid\'s ERP system is perfect for our diverse workforce. It\'s very efficient. Rapid\'s team understood our needs and provided a solution that exceeded our expectations.' },
+    { name: 'Rafid Hasan', role: 'Manager', text: 'Rapid\'s ERP solution has transformed our business operations. From inventory to payroll, everything runs seamlessly now. Their support team is always ready to assist, ensuring a smooth experience.' },
+    { name: 'Mahmudul Alam', role: 'COO', text: 'We needed an ERP system that could grow with our company, and Rapid delivered beyond our expectations. Their customization options and user-friendly interface have been game-changers.' },
+    { name: 'Elena Rodriguez', role: 'Operations Director', text: 'The implementation process was incredibly smooth. Rapid ERP has given us unprecedented visibility into our supply chain, allowing us to cut costs by 15% in just six months.' },
+    { name: 'David Chen', role: 'CFO', text: 'Financial reporting used to take days. With Rapid ERP, we generate comprehensive, accurate reports in minutes. The ROI has been phenomenal.' }
+  ];
+
   const whyChooseUs = [
     {
       icon: <Languages className="w-8 h-8 text-blue-500" />,
@@ -273,42 +281,56 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-800 mb-12">
+      <section className="py-20 bg-slate-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <h2 className="text-4xl font-bold text-slate-800">
             <span className="text-[#28a8e0] mr-2">|</span>What <span className="text-[#28a8e0]">Our Clients</span> Says
           </h2>
+        </div>
+        
+        <style>
+          {`
+            @keyframes scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(calc(-50%)); }
+            }
+            .animate-scroll {
+              animation: scroll 40s linear infinite;
+              width: max-content;
+            }
+            .animate-scroll:hover {
+              animation-play-state: paused;
+            }
+          `}
+        </style>
+
+        <div className="relative w-full">
+          {/* Gradient masks for smooth fade on edges */}
+          <div className="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { name: 'Sophia Anderson', role: 'CEO', text: 'The bilingual support in Rapid\'s ERP system is perfect for our diverse workforce. It\'s very efficient. Rapid\'s team understood our needs and provided a solution that exceeded our expectations.' },
-              { name: 'Rafid Hasan', role: 'Manager', text: 'Rapid\'s ERP solution has transformed our business operations. From inventory to payroll, everything runs seamlessly now. Their support team is always ready to assist, ensuring a smooth experience.' },
-              { name: 'Mahmudul Alam', role: 'COO', text: 'We needed an ERP system that could grow with our company, and Rapid delivered beyond our expectations. Their customization options and user-friendly interface have been game-changers.' }
-            ].map((testimonial, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col">
-                <div className="p-8 flex-grow relative">
-                  <div className="absolute top-6 left-6 text-6xl text-sky-100 font-serif leading-none">"</div>
-                  <p className="text-slate-600 relative z-10 text-sm leading-relaxed italic mt-4">
-                    {testimonial.text}
-                  </p>
-                </div>
-                <div className="bg-[#28a8e0] p-4 text-white flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
-                    <img src={`https://picsum.photos/seed/${testimonial.name.replace(' ', '')}/100/100`} alt={testimonial.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          <div className="flex animate-scroll">
+            {[...testimonials, ...testimonials].map((testimonial, idx) => (
+              <div key={idx} className="w-[320px] md:w-[450px] flex-shrink-0 px-4">
+                <div className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-slate-100">
+                  <div className="p-8 flex-grow relative">
+                    <div className="absolute top-6 left-6 text-6xl text-sky-100 font-serif leading-none">"</div>
+                    <p className="text-slate-600 relative z-10 text-sm leading-relaxed italic mt-4">
+                      {testimonial.text}
+                    </p>
                   </div>
-                  <div>
-                    <div className="font-bold">{testimonial.name}</div>
-                    <div className="text-xs text-sky-100">{testimonial.role}</div>
+                  <div className="bg-[#28a8e0] p-4 text-white flex items-center gap-4 mt-auto">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
+                      <img src={`https://picsum.photos/seed/${testimonial.name.replace(' ', '')}/100/100`} alt={testimonial.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <div>
+                      <div className="font-bold">{testimonial.name}</div>
+                      <div className="text-xs text-sky-100">{testimonial.role}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-          
-          <div className="flex justify-center mt-8 gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#28a8e0]"></div>
-            <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-            <div className="w-2 h-2 rounded-full bg-slate-300"></div>
           </div>
         </div>
       </section>
