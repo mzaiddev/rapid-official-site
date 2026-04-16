@@ -3,6 +3,16 @@ import { Menu, X, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } 
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 
+const Logo = () => (
+  <div className="flex items-center gap-2">
+    <div className="relative w-10 h-10 flex items-center justify-center">
+      <div className="absolute inset-0 border-[3px] border-l-[#d32f2f] border-t-[#d32f2f] border-r-transparent border-b-[#d32f2f] rounded-full transform -rotate-45"></div>
+      <div className="absolute inset-1 border-[2px] border-l-[#d32f2f] border-b-[#d32f2f] border-r-transparent border-t-transparent rounded-full transform -rotate-12"></div>
+    </div>
+    <span className="text-white font-bold text-2xl tracking-widest font-sans px-2">RAPID</span>
+  </div>
+);
+
 export default function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -18,41 +28,42 @@ export default function Layout() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col font-sans text-slate-800">
+    <div className="min-h-screen flex flex-col font-sans text-slate-800 bg-white">
       {/* Navbar */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-50 bg-[#111111] border-b border-slate-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="flex items-center gap-2">
-                <div className="bg-[#28a8e0] text-white font-bold text-3xl tracking-wider px-4 py-2 rounded-sm">
-                  RAPID
-                </div>
+              <Link to="/" className="flex items-center">
+                <Logo />
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex space-x-8 items-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-[#28a8e0]",
-                    location.pathname === link.path ? "text-[#28a8e0]" : "text-slate-600"
+                    "text-sm font-semibold transition-colors hover:text-[#d32f2f]",
+                    location.pathname === link.path ? "text-[#d32f2f]" : "text-white"
                   )}
                 >
                   {link.name}
                 </Link>
               ))}
+              <Link to="/contact" className="bg-[#d32f2f] text-white px-5 py-2 rounded font-bold hover:bg-red-700 transition-colors ml-4 shadow-sm text-sm">
+                BOOK APPOINTMENT
+              </Link>
             </nav>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-slate-600 hover:text-[#28a8e0] focus:outline-none"
+                className="text-white hover:text-[#d32f2f] focus:outline-none"
               >
                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -62,7 +73,7 @@ export default function Layout() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-slate-100">
+          <div className="md:hidden bg-[#1a1a1a] border-t border-slate-800">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (
                 <Link
@@ -72,13 +83,18 @@ export default function Layout() {
                   className={cn(
                     "block px-3 py-2 rounded-md text-base font-medium",
                     location.pathname === link.path
-                      ? "text-[#28a8e0] bg-sky-50"
-                      : "text-slate-600 hover:text-[#28a8e0] hover:bg-sky-50"
+                      ? "text-[#d32f2f] bg-slate-800"
+                      : "text-slate-300 hover:text-[#d32f2f] hover:bg-slate-800"
                   )}
                 >
                   {link.name}
                 </Link>
               ))}
+              <div className="px-3 pt-2">
+                <Link to="/contact" className="block w-full text-center bg-[#d32f2f] text-white px-5 py-2 rounded font-bold hover:bg-red-700 transition-colors shadow-sm">
+                  BOOK APPOINTMENT
+                </Link>
+              </div>
             </div>
           </div>
         )}
@@ -90,64 +106,64 @@ export default function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
+      <footer className="bg-[#111111] text-slate-300 py-16 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div>
-              <div className="bg-[#28a8e0] text-white font-bold text-3xl tracking-wider px-4 py-2 rounded-sm inline-block mb-6">
-                RAPID
+              <div className="mb-6 inline-block">
+                <Logo />
               </div>
               <p className="text-sm text-slate-400 mb-6 leading-relaxed">
                 Rapid offers seamless business transformation through cutting-edge technology tailored to your needs. We ensure efficiency and scalability for your enterprise.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#28a8e0] hover:text-white transition-colors"><Facebook className="w-5 h-5" /></a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#28a8e0] hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#28a8e0] hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#28a8e0] hover:text-white transition-colors"><Instagram className="w-5 h-5" /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#d32f2f] hover:text-white transition-colors border border-slate-700"><Facebook className="w-4 h-4" /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#d32f2f] hover:text-white transition-colors border border-slate-700"><Twitter className="w-4 h-4" /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#d32f2f] hover:text-white transition-colors border border-slate-700"><Linkedin className="w-4 h-4" /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#d32f2f] hover:text-white transition-colors border border-slate-700"><Instagram className="w-4 h-4" /></a>
               </div>
             </div>
             
             <div>
-              <h3 className="text-white font-bold text-lg mb-6">Quick Links</h3>
+              <h3 className="text-white font-bold text-lg mb-6 uppercase tracking-wider text-sm">Quick Links</h3>
               <ul className="space-y-3 text-sm">
-                <li><Link to="/about" className="hover:text-[#28a8e0] transition-colors">About Us</Link></li>
-                <li><Link to="/career" className="hover:text-[#28a8e0] transition-colors">Careers</Link></li>
-                <li><Link to="/blog" className="hover:text-[#28a8e0] transition-colors">Blog</Link></li>
-                <li><Link to="/contact" className="hover:text-[#28a8e0] transition-colors">Contact Us</Link></li>
+                <li><Link to="/about" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> About Us</Link></li>
+                <li><Link to="/career" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Careers</Link></li>
+                <li><Link to="/blog" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Blog</Link></li>
+                <li><Link to="/contact" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Contact Us</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-white font-bold text-lg mb-6">Industries</h3>
+              <h3 className="text-white font-bold text-lg mb-6 uppercase tracking-wider text-sm">Industries</h3>
               <ul className="space-y-3 text-sm">
-                <li><Link to="/industries" className="hover:text-[#28a8e0] transition-colors">Retail & Supermarket</Link></li>
-                <li><Link to="/industries" className="hover:text-[#28a8e0] transition-colors">Healthcare & Clinic</Link></li>
-                <li><Link to="/industries" className="hover:text-[#28a8e0] transition-colors">Automotive</Link></li>
-                <li><Link to="/industries" className="hover:text-[#28a8e0] transition-colors">Hospitality & Hotel</Link></li>
+                <li><Link to="/industries" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Retail & Supermarket</Link></li>
+                <li><Link to="/industries" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Healthcare & Clinic</Link></li>
+                <li><Link to="/industries" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Automotive</Link></li>
+                <li><Link to="/industries" className="hover:text-[#d32f2f] transition-colors flex items-center gap-2"><span className="text-[#d32f2f]">›</span> Hospitality & Hotel</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-white font-bold text-lg mb-6">Contact Info</h3>
+              <h3 className="text-white font-bold text-lg mb-6 uppercase tracking-wider text-sm">Contact Info</h3>
               <ul className="space-y-4 text-sm">
                 <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#28a8e0] flex-shrink-0" />
+                  <MapPin className="w-5 h-5 text-[#d32f2f] flex-shrink-0" />
                   <span>123 Tech Boulevard, Innovation District, Silicon Valley, CA 94043</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#28a8e0] flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-[#d32f2f] flex-shrink-0" />
                   <span>+1 (555) 123-4567</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#28a8e0] flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-[#d32f2f] flex-shrink-0" />
                   <span>info@rapid-erp.com</span>
                 </li>
               </ul>
             </div>
           </div>
           
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-wider">
             <div>&copy; {new Date().getFullYear()} Rapid ERP. All rights reserved.</div>
             <div className="flex gap-6">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -158,7 +174,7 @@ export default function Layout() {
       </footer>
       
       {/* WhatsApp Floating Button Placeholder */}
-      <div className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-colors z-50">
+      <div className="fixed bottom-6 right-6 bg-red-500 text-white p-3 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-colors z-50">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
       </div>
     </div>

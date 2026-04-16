@@ -279,20 +279,15 @@ export default function Services() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-[#28a8e0] text-white py-20 relative overflow-hidden">
-        {/* Decorative waves */}
-        <div className="absolute inset-0 opacity-20">
-          <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-auto" preserveAspectRatio="none">
-            <path fill="#ffffff" fillOpacity="1" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,181.3C672,192,768,160,864,133.3C960,107,1056,85,1152,90.7C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-          </svg>
-          <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-auto translate-y-8" preserveAspectRatio="none">
-            <path fill="#ffffff" fillOpacity="0.5" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-          </svg>
+      <section className="relative bg-slate-900 text-white overflow-hidden py-24">
+        <div className="absolute inset-0">
+          <img src="https://picsum.photos/seed/services/1920/500" alt="Services Hero" className="w-full h-full object-cover opacity-20" referrerPolicy="no-referrer" />
+          <div className="absolute inset-0 bg-slate-900/80"></div>
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Services</h1>
-          <p className="text-sky-100 max-w-2xl text-lg">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+          <div className="inline-block bg-[#d32f2f] text-white text-xs font-bold px-3 py-1 mb-4 rounded-sm tracking-widest uppercase">What We Do</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">Services</h1>
+          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
             Comprehensive ERP services, from implementation to support, driving seamless business transformation and operational excellence.
           </p>
         </div>
@@ -301,7 +296,7 @@ export default function Services() {
       {/* Content Section */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <h2 className="text-2xl font-bold text-slate-800 mb-8">
-          <span className="text-[#28a8e0] mr-2">|</span>Explore by Services
+          <span className="text-[#d32f2f] mr-2">|</span>Explore by Services
         </h2>
         
         <div className="flex flex-col md:flex-row gap-8">
@@ -314,8 +309,8 @@ export default function Services() {
                   onClick={() => setActiveService(service)}
                   className={`px-4 py-4 text-sm font-medium transition-colors text-left border-l-2 -ml-[2px] ${
                     activeService === service 
-                      ? 'border-[#28a8e0] text-[#28a8e0] bg-sky-50/50' 
-                      : 'border-transparent text-slate-600 hover:text-[#28a8e0] hover:bg-slate-50'
+                      ? 'border-[#d32f2f] text-[#d32f2f] bg-red-50/50' 
+                      : 'border-transparent text-slate-600 hover:text-[#d32f2f] hover:bg-slate-50'
                   }`}
                 >
                   {service}
@@ -335,7 +330,7 @@ export default function Services() {
             <div className="grid grid-cols-3 gap-4 mb-10 border-b border-slate-100 pb-10">
               {activeData.stats.map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#28a8e0] mb-2">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#d32f2f] mb-2">{stat.value}</div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider">{stat.label}</div>
                 </div>
               ))}

@@ -4,10 +4,15 @@ export default function Contact() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-slate-50 py-20 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Contact Us</h1>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+      <section className="relative bg-slate-900 text-white overflow-hidden py-24">
+        <div className="absolute inset-0">
+          <img src="https://picsum.photos/seed/contact/1920/500" alt="Contact Hero" className="w-full h-full object-cover opacity-20" referrerPolicy="no-referrer" />
+          <div className="absolute inset-0 bg-slate-900/80"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+          <div className="inline-block bg-[#d32f2f] text-white text-xs font-bold px-3 py-1 mb-4 rounded-sm tracking-widest uppercase">Get in Touch</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">Contact Us</h1>
+          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
             Have a question or want to discuss a project? We'd love to hear from you.
           </p>
         </div>
@@ -19,7 +24,7 @@ export default function Contact() {
           {/* Contact Info */}
           <div>
             <h2 className="text-3xl font-bold text-slate-800 mb-8">
-              <span className="text-[#28a8e0] mr-2">|</span>Get in Touch
+              <span className="text-[#d32f2f] mr-2">|</span>Get in Touch
             </h2>
             <p className="text-slate-600 mb-10 leading-relaxed">
               Whether you're looking for an ERP solution, custom software development, or just want to say hello, our team is ready to assist you.
@@ -27,7 +32,7 @@ export default function Contact() {
 
             <div className="space-y-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-[#28a8e0] flex-shrink-0">
+                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-[#d32f2f] flex-shrink-0">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
@@ -37,7 +42,7 @@ export default function Contact() {
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-[#28a8e0] flex-shrink-0">
+                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-[#d32f2f] flex-shrink-0">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
@@ -47,7 +52,7 @@ export default function Contact() {
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-[#28a8e0] flex-shrink-0">
+                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-[#d32f2f] flex-shrink-0">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
@@ -65,26 +70,26 @@ export default function Contact() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#28a8e0] focus:border-transparent outline-none transition-all" placeholder="John" />
+                  <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="John" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#28a8e0] focus:border-transparent outline-none transition-all" placeholder="Doe" />
+                  <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="Doe" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                <input type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#28a8e0] focus:border-transparent outline-none transition-all" placeholder="john@example.com" />
+                <input type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="john@example.com" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Subject</label>
-                <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#28a8e0] focus:border-transparent outline-none transition-all" placeholder="How can we help?" />
+                <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="How can we help?" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                <textarea rows={4} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#28a8e0] focus:border-transparent outline-none transition-all resize-none" placeholder="Your message here..."></textarea>
+                <textarea rows={4} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all resize-none" placeholder="Your message here..."></textarea>
               </div>
-              <button type="button" className="w-full bg-[#28a8e0] text-white px-6 py-3 rounded-lg font-medium hover:bg-sky-600 transition-colors flex items-center justify-center gap-2">
+              <button type="button" className="w-full bg-[#d32f2f] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
                 Send Message <Send className="w-4 h-4" />
               </button>
             </form>

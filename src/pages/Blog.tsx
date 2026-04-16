@@ -58,10 +58,15 @@ export default function Blog() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-slate-50 py-20 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Our Blog</h1>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+      <section className="relative bg-slate-900 text-white overflow-hidden py-24">
+        <div className="absolute inset-0">
+          <img src="https://picsum.photos/seed/blog/1920/500" alt="Blog Hero" className="w-full h-full object-cover opacity-20" referrerPolicy="no-referrer" />
+          <div className="absolute inset-0 bg-slate-900/80"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+          <div className="inline-block bg-[#d32f2f] text-white text-xs font-bold px-3 py-1 mb-4 rounded-sm tracking-widest uppercase">Latest News</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">Our Blog</h1>
+          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
             Insights, news, and expert opinions on software development, ERP solutions, and digital transformation.
           </p>
         </div>
@@ -79,7 +84,7 @@ export default function Blog() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#28a8e0]">
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#d32f2f]">
                   {post.category}
                 </div>
               </div>
@@ -88,7 +93,7 @@ export default function Blog() {
                   <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {post.date}</span>
                   <span className="flex items-center gap-1"><User className="w-3 h-3" /> {post.author}</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-[#28a8e0] transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-[#d32f2f] transition-colors line-clamp-2">
                   {post.title}
                 </h3>
                 <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-grow">
@@ -96,7 +101,7 @@ export default function Blog() {
                 </p>
                 <button 
                   onClick={() => setSelectedPost(post)}
-                  className="text-[#28a8e0] font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all w-fit mt-auto"
+                  className="text-[#d32f2f] font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all w-fit mt-auto"
                 >
                   Read More <ArrowRight className="w-4 h-4" />
                 </button>
@@ -132,7 +137,7 @@ export default function Blog() {
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#28a8e0]">
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#d32f2f]">
                 {selectedPost.category}
               </div>
             </div>
@@ -161,7 +166,7 @@ export default function Blog() {
                   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                 </p>
                 
-                <blockquote className="border-l-4 border-[#28a8e0] pl-4 my-8 italic text-slate-700 text-lg bg-sky-50 py-4 pr-4 rounded-r-lg">
+                <blockquote className="border-l-4 border-[#d32f2f] pl-4 my-8 italic text-slate-700 text-lg bg-red-50 py-4 pr-4 rounded-r-lg">
                   "The integration of these new technologies is not just an upgrade; it's a fundamental shift in how we approach enterprise resource planning."
                 </blockquote>
                 
