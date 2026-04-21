@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { 
   ShoppingCart, Truck, Car, Hotel, Stethoscope, Briefcase, 
-  Pill, GraduationCap, Factory, Droplet, CheckCircle2
+  Pill, GraduationCap, Factory, Droplet, CheckCircle2,
+  ArrowRight
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 export default function Industries() {
   const [activeIndustry, setActiveIndustry] = useState('Retail');
@@ -19,7 +22,7 @@ export default function Industries() {
   const industryDetails = {
     'Retail': {
       title: 'Retail',
-      description: 'Empowering Retailers with Advanced Software Solutions. In the competitive retail market, the key to success lies in offering seamless customer experiences and maintaining efficient business operations. Our Retail Management Software streamlines inventory, order management, sales, and customer data, empowering retailers to operate efficiently while enhancing customer satisfaction. With our integrated solutions, you can manage your business from anywhere and at any time, ensuring you stay competitive in an ever-evolving industry.',
+      description: 'Empowering Retailers with Advanced Software Solutions. In the competitive retail market, the key to success lies in offering seamless customer experiences and maintaining efficient business operations. Our Retail Management Software streamlines inventory, order management, sales, and customer data, empowering retailers to operate efficiently while enhancing customer satisfaction.',
       features: [
         'Inventory and Stock Management',
         'Point-of-Sale (POS) Integration',
@@ -31,7 +34,8 @@ export default function Industries() {
         'Improved operational efficiency with real-time data.',
         'Enhanced customer experience through personalized engagement.',
         'Scalable solutions that grow with your business.'
-      ]
+      ],
+      icon: <ShoppingCart className="w-12 h-12" />
     },
     'Distribution': {
       title: 'Distribution',
@@ -47,11 +51,12 @@ export default function Industries() {
         'Reduce operational costs through optimized logistics.',
         'Minimize stockouts and overstock situations.',
         'Improve delivery times and customer satisfaction.'
-      ]
+      ],
+      icon: <Truck className="w-12 h-12" />
     },
     'Automotive': {
       title: 'Automotive',
-      description: 'Accelerate your automotive business with tailored software solutions. Whether you manage a dealership, a repair shop, or an auto parts store, our Automotive ERP provides the tools you need to manage inventory, schedule services, and build lasting customer relationships. Stay ahead in a fast-paced industry with real-time insights and automated workflows.',
+      description: 'Accelerate your automotive business with tailored software solutions. Whether you manage a dealership, a repair shop, or an auto parts store, our Automotive ERP provides the tools you need to manage inventory, schedule services, and build lasting customer relationships.',
       features: [
         'Vehicle and Parts Inventory Management',
         'Service Scheduling and Tracking',
@@ -63,11 +68,12 @@ export default function Industries() {
         'Streamline service operations and reduce wait times.',
         'Optimize parts inventory to reduce carrying costs.',
         'Enhance customer loyalty with personalized service.'
-      ]
+      ],
+      icon: <Car className="w-12 h-12" />
     },
     'Hospitality': {
       title: 'Hospitality',
-      description: 'Elevate guest experiences with our all-in-one Hospitality Management System. Designed for hotels, resorts, and restaurants, our software simplifies property management, booking, and guest services. By automating routine tasks, your staff can focus on what matters most: providing exceptional service and creating memorable experiences for your guests.',
+      description: 'Elevate guest experiences with our all-in-one Hospitality Management System. Designed for hotels, resorts, and restaurants, our software simplifies property management, booking, and guest services. By automating routine tasks, your staff can focus on what matters most.',
       features: [
         'Property Management System (PMS)',
         'Online Booking and Reservation Engine',
@@ -79,11 +85,12 @@ export default function Industries() {
         'Increase direct bookings and revenue.',
         'Improve staff efficiency and coordination.',
         'Deliver personalized guest experiences.'
-      ]
+      ],
+      icon: <Hotel className="w-12 h-12" />
     },
     'Healthcare': {
       title: 'Healthcare',
-      description: 'Transform patient care with our secure and compliant Healthcare ERP. Our solutions are designed to meet the unique challenges of hospitals, clinics, and pharmacies. From electronic health records (EHR) to billing and inventory management, we provide a unified platform that improves clinical outcomes and operational efficiency while ensuring regulatory compliance.',
+      description: 'Transform patient care with our secure and compliant Healthcare ERP. Our solutions are designed to meet the unique challenges of hospitals, clinics, and pharmacies. From electronic health records (EHR) to billing and inventory management, we provide a unified platform.',
       features: [
         'Electronic Health Records (EHR) Integration',
         'Patient Scheduling and Registration',
@@ -95,11 +102,12 @@ export default function Industries() {
         'Enhance patient care with accurate, accessible records.',
         'Reduce administrative burden and billing errors.',
         'Ensure compliance with healthcare regulations (HIPAA).'
-      ]
+      ],
+      icon: <Stethoscope className="w-12 h-12" />
     },
     'Financial': {
       title: 'Financial',
-      description: 'Navigate the complexities of the financial sector with our robust Financial ERP. Built for banks, investment firms, and accounting agencies, our software offers advanced tools for risk management, compliance, and financial reporting. Gain real-time visibility into your financial health and make data-driven decisions with confidence.',
+      description: 'Navigate the complexities of the financial sector with our robust Financial ERP. Built for banks, investment firms, and accounting agencies, our software offers advanced tools for risk management, compliance, and financial reporting. Gain real-time visibility into your financial health.',
       features: [
         'General Ledger and Accounting',
         'Risk Management and Compliance Tracking',
@@ -111,97 +119,179 @@ export default function Industries() {
         'Ensure strict compliance with financial regulations.',
         'Improve accuracy and speed of financial reporting.',
         'Mitigate risks with real-time monitoring and alerts.'
-      ]
+      ],
+      icon: <Briefcase className="w-12 h-12" />
     }
   };
 
   const activeData = industryDetails[activeIndustry as keyof typeof industryDetails] || industryDetails['Retail'];
 
   return (
-    <div className="flex flex-col">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col bg-slate-50"
+    >
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white overflow-hidden py-24">
-        <div className="absolute inset-0">
-          <img src="https://picsum.photos/seed/industries/1920/500" alt="Industries Hero" className="w-full h-full object-cover opacity-20" referrerPolicy="no-referrer" />
-          <div className="absolute inset-0 bg-slate-900/80"></div>
+      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-slate-950">
+        {/* Background Gradients & Effects */}
+        <div className="absolute inset-0 z-0 overflow-hidden text-white">
+           {/* Primary Brand Glows */}
+           <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-brand-primary/20 blur-[120px] rounded-full animate-pulse transition-opacity duration-1000"></div>
+           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
+           
+           {/* Slanted Geometric Shapes (Matching Image) */}
+           <div className="absolute inset-0 z-0 flex justify-center opacity-30">
+              <div className="relative w-full h-full max-w-7xl">
+                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[-20%]"></div>
+                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/[0.03] -skew-x-12"></div>
+                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[20%]"></div>
+                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/[0.08] -skew-x-12 translate-x-[40%]"></div>
+              </div>
+           </div>
+
+           {/* Center Atmospheric Glow */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_var(--color-brand-primary)_0%,_transparent_70%)] opacity-10"></div>
+           
+           {/* Subtle Grid Pattern Overlay */}
+           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-          <div className="inline-block bg-[#d32f2f] text-white text-xs font-bold px-3 py-1 mb-4 rounded-sm tracking-widest uppercase">Our Expertise</div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">Industries</h1>
-          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-            Tailored ERP solutions for diverse industries, ensuring efficiency, scalability, and growth in competitive markets.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
+              Vertical Solutions
+            </div>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+              Tailored software for complex industries.
+            </h1>
+            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl">
+              Discover how Rapid ERP transforms sector-specific challenges into sustainable growth strategies.
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* Content Section */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <h2 className="text-2xl font-bold text-slate-800 mb-8">
-          <span className="text-[#d32f2f] mr-2">|</span>Explore by Industries
-        </h2>
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Explore Domains</h2>
+          <h3 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+            Select an industry below.
+          </h3>
+        </div>
         
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-12 items-start">
           {/* Sidebar */}
-          <div className="w-full md:w-64 flex-shrink-0">
-            <div className="flex flex-col border-l-2 border-slate-100">
-              {industriesList.map((ind) => (
-                <button
-                  key={ind.id}
-                  onClick={() => setActiveIndustry(ind.id)}
-                  className={`flex items-center gap-3 px-4 py-4 text-sm font-medium transition-colors text-left border-l-2 -ml-[2px] ${
-                    activeIndustry === ind.id 
-                      ? 'border-[#d32f2f] text-[#d32f2f] bg-red-50/50' 
-                      : 'border-transparent text-slate-600 hover:text-[#d32f2f] hover:bg-slate-50'
-                  }`}
-                >
-                  {ind.icon}
-                  {ind.name}
-                </button>
-              ))}
+          <div className="w-full lg:w-72 flex-shrink-0 bg-white border border-slate-200 rounded-3xl p-4 shadow-sm relative z-20 lg:sticky lg:top-32">
+            <div className="flex flex-col space-y-1">
+              {industriesList.map((ind) => {
+                const isActive = activeIndustry === ind.id;
+                return (
+                  <button
+                    key={ind.id}
+                    onClick={() => setActiveIndustry(ind.id)}
+                    className={`flex items-center gap-3 px-4 py-4 rounded-2xl text-sm font-bold transition-all text-left relative ${
+                      isActive 
+                        ? 'text-brand-primary bg-brand-primary/5 shadow-sm' 
+                        : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div 
+                        layoutId="activeInd"
+                        className="absolute inset-0 bg-brand-primary/5 rounded-2xl -z-10"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    <div className={`${isActive ? 'text-brand-primary scale-110' : 'text-slate-400'} transition-transform`}>
+                       {ind.icon}
+                    </div>
+                    {ind.name}
+                  </button>
+                )
+              })}
             </div>
           </div>
           
-          {/* Main Content */}
-          <div className="flex-grow">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-red-50 text-[#d32f2f] rounded-lg">
-                <ShoppingCart className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-800">| {activeData.title}</h3>
-            </div>
-            
-            <p className="text-slate-600 mb-10 leading-relaxed">
-              {activeData.description}
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h4 className="font-bold text-slate-800 mb-4">Key Features</h4>
-                <ul className="space-y-3">
-                  {activeData.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                      <CheckCircle2 className="w-5 h-5 text-[#d32f2f] flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-bold text-slate-800 mb-4">Benefits</h4>
-                <ul className="space-y-3">
-                  {activeData.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                      <CheckCircle2 className="w-5 h-5 text-[#d32f2f] flex-shrink-0" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          {/* Main Content Area */}
+          <div className="flex-grow min-w-0 w-full relative z-10">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={activeIndustry}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-3xl border border-slate-200 p-8 lg:p-12 shadow-xl shadow-slate-200/40"
+              >
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="p-4 bg-brand-primary/5 text-brand-primary rounded-2xl">
+                    {activeData.icon}
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">{activeData.title} <span className="text-slate-300 font-light hidden sm:inline-block">/</span> Software</h3>
+                </div>
+                
+                <p className="text-lg text-slate-600 mb-12 leading-relaxed max-w-3xl">
+                  {activeData.description}
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-12">
+                  <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                    <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Key Capabilities</h4>
+                    <ul className="space-y-4">
+                      {activeData.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm font-semibold text-slate-700">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/30 rounded-full blur-[60px]"></div>
+                    <h4 className="font-bold text-white mb-6 flex items-center gap-2">Core Benefits</h4>
+                    <ul className="space-y-4 relative z-10">
+                      {activeData.benefits.map((benefit, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm font-medium text-slate-300">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-10 relative z-10">
+                       <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-brand-primary transition-colors">
+                          Schedule a Demo <ArrowRight className="w-4 h-4" />
+                       </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
-    </div>
+
+      {/* CTA Layer */}
+      <section className="py-24 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Not seeing your industry?</h2>
+            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+              Our architecture is infinitely adaptable. Speak with our engineers to discover how we can forge a custom solution for your exact workflow.
+            </p>
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-slate-900/20">
+               Contact Solutions Team <ArrowRight className="w-5 h-5"/>
+            </Link>
+        </div>
+      </section>
+
+    </motion.div>
   );
 }

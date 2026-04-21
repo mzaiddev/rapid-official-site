@@ -1,146 +1,129 @@
-import { MapPin, Clock, ArrowRight, X } from 'lucide-react';
-import { useState } from 'react';
+import { MapPin, Clock, ArrowRight, Briefcase, Users, Star, GraduationCap, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 export default function Career() {
-  const [selectedJob, setSelectedJob] = useState<string | null>(null);
-
   const jobs = [
-    { title: 'Senior Full Stack Developer', location: 'Remote / Hybrid', type: 'Full-time', dept: 'Engineering' },
-    { title: 'UI/UX Designer', location: 'On-site', type: 'Full-time', dept: 'Design' },
-    { title: 'ERP Implementation Specialist', location: 'Remote', type: 'Full-time', dept: 'Consulting' },
-    { title: 'Project Manager', location: 'Hybrid', type: 'Full-time', dept: 'Management' },
+    { id: 'senior-full-stack', title: 'Senior Full Stack Developer', location: 'Remote / Hybrid', type: 'Full-time', dept: 'Engineering', desc: 'Architect and scale our core high-performance systems.' },
+    { id: 'ui-ux-designer', title: 'UI/UX Designer', location: 'On-site', type: 'Full-time', dept: 'Design', desc: 'Craft beautiful, intuitive experiences for enterprise software.' },
+    { id: 'erp-specialist', title: 'ERP Implementation Specialist', location: 'Remote', type: 'Full-time', dept: 'Consulting', desc: 'Guide our largest clients through complex migrations.' },
+    { id: 'tech-project-manager', title: 'Technical Project Manager', location: 'Hybrid', type: 'Full-time', dept: 'Management', desc: 'Lead cross-functional engineering pods to success.' },
   ];
 
   return (
-    <div className="flex flex-col">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col bg-slate-50 relative min-h-screen"
+    >
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white overflow-hidden py-24">
-        <div className="absolute inset-0">
-          <img src="https://picsum.photos/seed/career/1920/500" alt="Career Hero" className="w-full h-full object-cover opacity-20" referrerPolicy="no-referrer" />
-          <div className="absolute inset-0 bg-slate-900/80"></div>
+      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-slate-950">
+        {/* Background Gradients & Effects */}
+        <div className="absolute inset-0 z-0 overflow-hidden text-white">
+           {/* Primary Brand Glows */}
+           <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-brand-primary/20 blur-[120px] rounded-full animate-pulse transition-opacity duration-1000"></div>
+           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
+           
+           {/* Slanted Geometric Shapes (Matching Image) */}
+           <div className="absolute inset-0 z-0 flex justify-center opacity-30">
+              <div className="relative w-full h-full max-w-7xl">
+                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[-20%]"></div>
+                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/[0.03] -skew-x-12"></div>
+                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[20%]"></div>
+                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/[0.08] -skew-x-12 translate-x-[40%]"></div>
+              </div>
+           </div>
+
+           {/* Center Atmospheric Glow */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_var(--color-brand-primary)_0%,_transparent_70%)] opacity-10"></div>
+           
+           {/* Subtle Grid Pattern Overlay */}
+           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-          <div className="inline-block bg-[#d32f2f] text-white text-xs font-bold px-3 py-1 mb-4 rounded-sm tracking-widest uppercase">Careers</div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">Join Our Team</h1>
-          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-            Build your career with a global leader in software product development. We're always looking for passionate talent.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
+              Join the Mission
+            </div>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+              Do the best work of <br className="hidden md:block"/> your life.
+            </h1>
+            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
+              We're assembling a team of relentless problem solvers. Build software that powers global commerce.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-slate-800 mb-4">Why Work With Us?</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            At Rapid, we foster a culture of innovation, continuous learning, and collaboration. We offer competitive benefits, flexible working arrangements, and opportunities to work on cutting-edge technologies.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          <div className="bg-red-50 p-6 rounded-xl text-center">
-            <h3 className="font-bold text-slate-800 mb-2">Growth Opportunities</h3>
-            <p className="text-sm text-slate-600">Continuous learning programs and clear career progression paths.</p>
-          </div>
-          <div className="bg-red-50 p-6 rounded-xl text-center">
-            <h3 className="font-bold text-slate-800 mb-2">Global Exposure</h3>
-            <p className="text-sm text-slate-600">Work with international clients across 15+ countries.</p>
-          </div>
-          <div className="bg-red-50 p-6 rounded-xl text-center">
-            <h3 className="font-bold text-slate-800 mb-2">Work-Life Balance</h3>
-            <p className="text-sm text-slate-600">Flexible working hours and hybrid/remote options available.</p>
-          </div>
-        </div>
-
-        <h2 className="text-3xl font-bold text-slate-800 mb-8">
-          <span className="text-[#d32f2f] mr-2">|</span>Open Positions
-        </h2>
-        
-        <div className="space-y-4">
-          {jobs.map((job, idx) => (
-            <div key={idx} className="bg-white border border-slate-200 p-6 rounded-xl hover:border-[#d32f2f] hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group">
-              <div>
-                <div className="text-xs font-semibold text-[#d32f2f] uppercase tracking-wider mb-2">{job.dept}</div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-[#d32f2f] transition-colors">{job.title}</h3>
-                <div className="flex flex-wrap gap-4 text-sm text-slate-500">
-                  <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> {job.location}</span>
-                  <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {job.type}</span>
-                </div>
+      {/* Why Work With Us (Bento) */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative -mt-12 z-20">
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { icon: <GraduationCap />, title: "Hyper Growth", color: "text-brand-primary", bg: "bg-brand-primary/5", text: "Continuous learning stipends, dedicated mentorship, and transparent paths to technical or management leadership." },
+            { icon: <Users />, title: "Remote-First Culture", color: "text-emerald-500", bg: "bg-emerald-50", text: "Work from anywhere. We provide top-tier home office equipment and emphasize async execution over meetings." },
+            { icon: <Star />, title: "Elite Compensation", color: "text-brand-primary", bg: "bg-brand-primary/5", text: "Top 90th percentile salaries, meaningful equity packages, and comprehensive Platinum health coverage." },
+          ].map((item, id) => (
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: id * 0.1 + 0.3 }}
+              key={id} className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:-translate-y-1 transition-transform"
+            >
+              <div className={`w-14 h-14 ${item.bg} ${item.color} rounded-2xl flex items-center justify-center mb-6`}>
+                 {item.icon}
               </div>
-              <button 
-                onClick={() => setSelectedJob(job.title)}
-                className="bg-slate-100 text-slate-700 px-6 py-2 rounded-md font-medium hover:bg-[#d32f2f] hover:text-white transition-colors flex items-center gap-2 w-fit"
-              >
-                Apply Now <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
+              <p className="text-slate-600 font-medium leading-relaxed text-sm">
+                {item.text}
+              </p>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Apply Modal */}
-      {selectedJob && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
-              <h3 className="text-2xl font-bold text-slate-800">Apply for {selectedJob}</h3>
-              <button 
-                onClick={() => setSelectedJob(null)}
-                className="p-2 hover:bg-slate-100 rounded-full transition-colors"
-              >
-                <X className="w-6 h-6 text-slate-500" />
-              </button>
-            </div>
-            
-            <div className="p-6">
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="John" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="Doe" />
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                  <input type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="john@example.com" />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
-                  <input type="tel" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="+1 (555) 000-0000" />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">LinkedIn Profile URL</label>
-                  <input type="url" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all" placeholder="https://linkedin.com/in/johndoe" />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Resume / CV</label>
-                  <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center hover:border-[#d32f2f] transition-colors cursor-pointer bg-slate-50">
-                    <p className="text-slate-600 mb-2">Drag and drop your resume here, or click to browse</p>
-                    <p className="text-xs text-slate-400">Supported formats: PDF, DOCX (Max 5MB)</p>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Cover Letter (Optional)</label>
-                  <textarea rows={4} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#d32f2f] focus:border-transparent outline-none transition-all resize-none" placeholder="Tell us why you're a great fit..."></textarea>
-                </div>
-
-                <button type="button" className="w-full bg-[#d32f2f] text-white px-6 py-4 rounded-lg font-bold hover:bg-red-700 transition-colors text-lg">
-                  Submit Application
-                </button>
-              </form>
-            </div>
+      {/* Job Board */}
+      <section className="py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex flex-col sm:flex-row justify-between items-end mb-12">
+          <div>
+            <h2 className="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Open Roles</h2>
+            <h3 className="text-3xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Join the Engineering Pods.
+            </h3>
           </div>
         </div>
-      )}
-    </div>
+        
+        <div className="space-y-4">
+          {jobs.map((job, idx) => (
+            <div key={idx} className="bg-white border border-slate-200 p-8 rounded-3xl hover:shadow-xl hover:shadow-slate-200/50 hover:border-brand-primary/30 transition-all group flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="flex-grow">
+                <div className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <Briefcase className="w-3.5 h-3.5" />
+                  {job.dept}
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">{job.title}</h3>
+                <p className="text-slate-500 font-medium text-sm mb-4">{job.desc}</p>
+                <div className="flex flex-wrap gap-4 text-sm font-semibold text-slate-600">
+                  <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg"><MapPin className="w-4 h-4 text-slate-400" /> {job.location}</span>
+                  <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg"><Clock className="w-4 h-4 text-slate-400" /> {job.type}</span>
+                </div>
+              </div>
+              <Link 
+                to={`/career/${job.id}`}
+                state={{ job }}
+                className="flex-shrink-0 bg-slate-900 text-white px-6 py-3.5 rounded-xl font-bold hover:bg-brand-primary transition-colors flex items-center gap-2 w-full md:w-auto justify-center"
+              >
+                Apply Now <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+    </motion.div>
   );
 }
