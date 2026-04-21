@@ -100,7 +100,7 @@ const MegaMenu = ({ isOpen, activeMenu, onClose }: { isOpen: boolean; activeMenu
           
           <div className="grid grid-cols-2 gap-8">
             {currentMenu.tabs[activeTab].items.map((item, idx) => (
-              <Link key={idx} to="/services" className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">
+              <Link key={idx} to="/services" className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-brand-primary/5 transition-all border border-transparent hover:border-brand-primary/10">
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/5 text-brand-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   <item.icon className="w-6 h-6" />
                 </div>
@@ -155,8 +155,8 @@ export default function Layout() {
         className={cn(
           "fixed top-0 w-full z-50 transition-all duration-300 border-b",
           scrolled 
-            ? "bg-slate-900/95 backdrop-blur-md py-4 shadow-xl border-brand-primary/10" 
-            : "bg-slate-900 py-6 border-transparent"
+            ? "bg-brand-dark/95 backdrop-blur-md py-4 shadow-xl border-brand-primary/10" 
+            : "bg-brand-dark py-6 border-transparent"
         )}
       >
         {/* Subtle Header Glow */}
@@ -231,7 +231,7 @@ export default function Layout() {
                 <Globe className="w-5 h-5" />
               </button>
 
-              <Link to="/contact" className="bg-white text-slate-900 px-6 py-2.5 rounded-lg font-bold hover:bg-slate-100 transition-all text-sm shadow-lg shadow-white/10">
+              <Link to="/contact" className="bg-white text-brand-dark px-6 py-2.5 rounded-lg font-bold hover:bg-brand-primary/10 hover:text-brand-dark transition-all text-sm shadow-lg shadow-white/10">
                 Schedule Demo
               </Link>
             </div>
@@ -266,7 +266,7 @@ export default function Layout() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden bg-slate-900 shadow-2xl overflow-hidden absolute w-full left-0"
+              className="lg:hidden bg-brand-dark shadow-2xl overflow-hidden absolute w-full left-0"
             >
               <div className="px-4 py-8 space-y-4">
                 {navLinks.map((link) => (
@@ -283,7 +283,7 @@ export default function Layout() {
                   </Link>
                 ))}
                 <div className="pt-4">
-                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-slate-900 w-full flex items-center justify-center py-4 rounded-xl font-bold">
+                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-brand-dark w-full flex items-center justify-center py-4 rounded-xl font-bold">
                     Schedule Demo
                   </Link>
                 </div>
@@ -299,7 +299,7 @@ export default function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#0a1120] text-slate-300 py-20 border-t border-slate-800/50">
+      <footer className="bg-brand-dark text-slate-300 py-20 border-t border-brand-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="lg:pr-8">

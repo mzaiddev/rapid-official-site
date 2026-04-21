@@ -10,17 +10,17 @@ export default function About() {
       className="flex flex-col bg-white"
     >
       {/* Hero Section - Digital Transformation style */}
-      <section className="relative pt-24 pb-32 lg:pt-40 lg:pb-48 overflow-hidden bg-slate-950">
+      <section className="relative pt-24 pb-32 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
         {/* Futuristic Background Patterns */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {/* Tech Circles/Orbits */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-brand-primary/20 rounded-full opacity-20"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-brand-primary/10 rounded-full opacity-30 border-dashed animate-[spin_60s_linear_infinite]"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-brand-primary/5 rounded-full opacity-10 animate-[spin_40s_linear_infinite_reverse]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-brand-primary/30 rounded-full opacity-20"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-brand-primary/20 rounded-full opacity-30 border-dashed animate-[spin_60s_linear_infinite]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-brand-primary/10 rounded-full opacity-10 animate-[spin_40s_linear_infinite_reverse]"></div>
           
           {/* Glows */}
-          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-primary/30 rounded-full blur-[120px] opacity-20"></div>
-          <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-primary/20 rounded-full blur-[100px] opacity-20"></div>
+          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-primary/40 rounded-full blur-[120px] opacity-20"></div>
+          <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-primary/30 rounded-full blur-[100px] opacity-20"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -168,7 +168,7 @@ export default function About() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-32 bg-[#050a18] text-white overflow-hidden relative">
+      <section className="py-32 bg-brand-dark text-white overflow-hidden relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--color-brand-primary)_0%,_transparent_100%)] opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-24">
@@ -231,7 +231,7 @@ export default function About() {
       </section>
 
       {/* Global Contact Section (Shared style) */}
-      <section className="py-32 bg-slate-900 overflow-hidden relative">
+      <section className="py-32 bg-brand-dark overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>

@@ -134,7 +134,7 @@ export default function Industries() {
       className="flex flex-col bg-slate-50"
     >
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-slate-950">
+      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-brand-dark">
         {/* Background Gradients & Effects */}
         <div className="absolute inset-0 z-0 overflow-hidden text-white">
            {/* Primary Brand Glows */}
@@ -142,12 +142,12 @@ export default function Industries() {
            <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
            
            {/* Slanted Geometric Shapes (Matching Image) */}
-           <div className="absolute inset-0 z-0 flex justify-center opacity-30">
+           <div className="absolute inset-0 z-0 flex justify-center opacity-40">
               <div className="relative w-full h-full max-w-7xl">
-                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[-20%]"></div>
-                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/[0.03] -skew-x-12"></div>
-                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/5 -skew-x-12 translate-x-[20%]"></div>
-                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/[0.08] -skew-x-12 translate-x-[40%]"></div>
+                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[-20%]"></div>
+                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/5 -skew-x-12"></div>
+                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[20%]"></div>
+                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/15 -skew-x-12 translate-x-[40%]"></div>
               </div>
            </div>
 
@@ -255,7 +255,7 @@ export default function Industries() {
                     </ul>
                   </div>
                   
-                  <div className="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden">
+                  <div className="bg-brand-dark rounded-3xl p-8 text-white relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/30 rounded-full blur-[60px]"></div>
                     <h4 className="font-bold text-white mb-6 flex items-center gap-2">Core Benefits</h4>
                     <ul className="space-y-4 relative z-10">
@@ -286,7 +286,7 @@ export default function Industries() {
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
               Our architecture is infinitely adaptable. Speak with our engineers to discover how we can forge a custom solution for your exact workflow.
             </p>
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-slate-900/20">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-brand-primary/10">
                Contact Solutions Team <ArrowRight className="w-5 h-5"/>
             </Link>
         </div>
