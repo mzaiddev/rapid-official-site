@@ -11,7 +11,7 @@ export default function Blog() {
       category: 'Technology',
       date: 'Oct 15, 2023',
       author: 'Sarah Jenkins',
-      image: 'https://picsum.photos/seed/tech1/800/600'
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200'
     },
     {
       id: '5-signs-your-business-needs-custom-software',
@@ -20,7 +20,7 @@ export default function Blog() {
       category: 'Business Strategy',
       date: 'Sep 28, 2023',
       author: 'Michael Chen',
-      image: 'https://picsum.photos/seed/business1/800/600'
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200'
     },
     {
       id: 'securing-your-enterprise-data',
@@ -29,7 +29,7 @@ export default function Blog() {
       category: 'Security',
       date: 'Sep 12, 2023',
       author: 'David Rodriguez',
-      image: 'https://picsum.photos/seed/security1/800/600'
+      image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&q=80&w=1200'
     },
     {
       id: 'how-retail-erp-transforms-cx',
@@ -38,7 +38,7 @@ export default function Blog() {
       category: 'Retail',
       date: 'Aug 30, 2023',
       author: 'Emily Watson',
-      image: 'https://picsum.photos/seed/retail1/800/600'
+      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&q=80&w=1200'
     },
     {
       id: 'role-of-iot-in-manufacturing',
@@ -47,7 +47,7 @@ export default function Blog() {
       category: 'Manufacturing',
       date: 'Aug 15, 2023',
       author: 'James Wilson',
-      image: 'https://picsum.photos/seed/manufacturing1/800/600'
+      image: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&q=80&w=1200'
     },
     {
       id: 'navigating-digital-transformation',
@@ -56,7 +56,7 @@ export default function Blog() {
       category: 'Digital Transformation',
       date: 'Jul 22, 2023',
       author: 'Sarah Jenkins',
-      image: 'https://picsum.photos/seed/digital1/800/600'
+      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200'
     }
   ];
 

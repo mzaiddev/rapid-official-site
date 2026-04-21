@@ -64,6 +64,10 @@ body {
   animation: scroll 40s linear infinite;
 }
 
+.testimonials-track {
+  animation: none;
+}
+
 @keyframes gradient-x {
   0%,
   100% {
@@ -77,4 +81,10 @@ body {
 .animate-gradient-x {
   animation: gradient-x 15s ease infinite;
   background-size: 200% 200%;
+}
+
+@media (min-width: 640px) {
+  .testimonials-track {
+    animation: scroll 40s linear infinite;
+  }
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 
@@ -286,7 +286,7 @@ export default function Services() {
       className="flex flex-col bg-slate-50"
     >
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-brand-dark">
+      <section className="relative overflow-hidden bg-brand-dark pt-24 pb-16 sm:pb-20 lg:pt-32 lg:pb-32">
         {/* Background Gradients & Effects */}
         <div className="absolute inset-0 z-0 overflow-hidden text-white">
            {/* Primary Brand Glows */}
@@ -315,14 +315,14 @@ export default function Services() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 px-3 py-1 text-xs font-semibold text-brand-primary sm:text-sm">
               <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
               Core Capabilities
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
               Engineering the future of enterprise.
             </h1>
-            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg md:text-xl">
               From sophisticated ERP solutions to advanced AI forecasting, discover our full suite of technical proficiencies.
             </p>
           </motion.div>
@@ -330,11 +330,37 @@ export default function Services() {
       </section>
 
       {/* Content Section */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <section className="w-full max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+          <div className="lg:hidden w-full">
+            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+              <label
+                htmlFor="service-selector"
+                className="mb-3 block text-xs font-bold uppercase tracking-[0.25em] text-slate-400"
+              >
+                Choose A Service
+              </label>
+              <div className="relative">
+                <select
+                  id="service-selector"
+                  value={activeService}
+                  onChange={(event) => setActiveService(event.target.value)}
+                  className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 pr-12 text-sm font-semibold text-slate-900 outline-none transition-all focus:border-brand-primary"
+                >
+                  {servicesList.map((service) => (
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              </div>
+            </div>
+          </div>
+
           {/* Sidebar */}
-          <div className="w-full lg:w-72 flex-shrink-0 relative z-20 lg:sticky lg:top-32">
+          <div className="relative z-20 hidden w-full flex-shrink-0 lg:sticky lg:top-32 lg:block lg:w-72">
             <div className="bg-white border border-slate-200 rounded-3xl p-4 shadow-sm flex flex-col space-y-1">
               {servicesList.map((service) => {
                 const isActive = activeService === service;
@@ -371,26 +397,26 @@ export default function Services() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden"
+                className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/40"
               >
-                <div className="p-8 lg:p-12 border-b border-slate-100">
-                  <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mb-6">{activeData.title}</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed max-w-3xl">
+                <div className="border-b border-slate-100 p-6 sm:p-8 lg:p-12">
+                  <h3 className="mb-4 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:mb-6 lg:text-4xl">{activeData.title}</h3>
+                  <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
                     {activeData.description}
                   </p>
                 </div>
                 
                 {/* Stats Ribbon */}
-                <div className="bg-brand-dark text-white grid grid-cols-3 divide-x divide-white/10 border-b border-white/5">
+                <div className="grid grid-cols-1 border-b border-white/5 bg-brand-dark text-white sm:grid-cols-3 sm:divide-x sm:divide-white/10">
                   {activeData.stats.map((stat, idx) => (
-                    <div key={idx} className="p-6 lg:p-8 text-center bg-gradient-to-b from-transparent to-brand-primary/5 hover:bg-white/5 transition-colors">
-                      <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-primary/80 to-brand-primary mb-2">{stat.value}</div>
+                    <div key={idx} className="bg-gradient-to-b from-transparent to-brand-primary/5 p-5 text-center transition-colors hover:bg-white/5 sm:p-6 lg:p-8">
+                      <div className="mb-2 bg-gradient-to-r from-brand-primary/80 to-brand-primary bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{stat.value}</div>
                       <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
                     </div>
                   ))}
                 </div>
 
-                <div className="grid md:grid-cols-2 p-8 lg:p-12 gap-12 bg-slate-50">
+                <div className="grid gap-8 bg-slate-50 p-6 sm:p-8 lg:grid-cols-2 lg:gap-12 lg:p-12">
                   <div>
                     <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Architecture Highlights</h4>
                     <ul className="space-y-4">
@@ -422,14 +448,14 @@ export default function Services() {
       </section>
       
       {/* CTA Layer */}
-      <section className="py-24 bg-white border-t border-slate-100">
+      <section className="border-t border-slate-100 bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Ready to scale faster?</h2>
-            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="mb-6 text-3xl font-bold text-slate-900">Ready to scale faster?</h2>
+            <p className="mx-auto mb-8 max-w-2xl text-base text-slate-600 sm:text-lg">
               Our engineering team is ready to architect the perfect solution for your enterprise. Let's discuss your technical requirements.
             </p>
             <div className="flex justify-center gap-4">
-               <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg shadow-brand-primary/30">
+               <Link to="/contact" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-primary px-8 py-4 font-bold text-white transition-all shadow-lg shadow-brand-primary/30 hover:bg-brand-secondary sm:w-auto">
                   Book Architecture Session <ArrowRight className="w-5 h-5"/>
                </Link>
             </div>

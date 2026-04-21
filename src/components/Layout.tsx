@@ -25,20 +25,70 @@ import { motion, AnimatePresence } from "motion/react";
 
 const Logo = () => (
   <div className="flex items-center gap-2">
-    <div className="w-8 h-8 flex items-center justify-center">
-      <div className="relative w-full h-full">
-        <div className="absolute inset-0 bg-brand-primary rounded-lg -rotate-6"></div>
-        <div className="absolute inset-0 bg-white/20 rounded-lg rotate-3 backdrop-blur-sm"></div>
-        <span className="relative z-10 text-white font-black text-lg flex items-center justify-center h-full">
-          R
-        </span>
-      </div>
-    </div>
-    <span className="font-black text-2xl tracking-tighter text-white">
-      RAPID<span className="text-brand-primary">.</span>
-    </span>
+    <img src="/RAPID.png" alt="" className="w-28 sm:w-36" />
   </div>
 );
+
+type MenuConfig = Record<
+  string,
+  {
+    tabs: {
+      title: string;
+      content: string;
+      icon: ReactNode;
+      items: { name: string; desc: string; icon: any; to: string }[];
+    }[];
+  }
+>;
+
+const menuData: MenuConfig = {
+  Services: {
+    tabs: [
+      {
+        title: "Intelligence",
+        content: "Harness the power of AI and automation.",
+        icon: <BrainCircuit className="w-4 h-4" />,
+        items: [
+          {
+            name: "AI Analytics",
+            desc: "Predictive business insights.",
+            icon: Zap,
+            to: "/services",
+          },
+          {
+            name: "Automation",
+            desc: "Streamline repetitive tasks.",
+            icon: Shield,
+            to: "/services",
+          },
+        ],
+      },
+    ],
+  },
+  Products: {
+    tabs: [
+      {
+        title: "ERP Suites",
+        content: "End-to-end management for all verticals.",
+        icon: <Package className="w-4 h-4" />,
+        items: [
+          {
+            name: "Retail Pro",
+            desc: "Next-gen retail management.",
+            icon: Activity,
+            to: "/products",
+          },
+          {
+            name: "Auto ERP",
+            desc: "Automotive specialized suite.",
+            icon: Zap,
+            to: "/products",
+          },
+        ],
+      },
+    ],
+  },
+};
 
 const MegaMenu = ({
   activeMenu,
@@ -52,65 +102,6 @@ const MegaMenu = ({
   useEffect(() => {
     setActiveTab(0);
   }, [activeMenu]);
-
-  const menuData: Record<
-    string,
-    {
-      tabs: {
-        title: string;
-        content: string;
-        icon: ReactNode;
-        items: { name: string; desc: string; icon: any; to: string }[];
-      }[];
-    }
-  > = {
-    Services: {
-      tabs: [
-        {
-          title: "Intelligence",
-          content: "Harness the power of AI and automation.",
-          icon: <BrainCircuit className="w-4 h-4" />,
-          items: [
-            {
-              name: "AI Analytics",
-              desc: "Predictive business insights.",
-              icon: Zap,
-              to: "/services",
-            },
-            {
-              name: "Automation",
-              desc: "Streamline repetitive tasks.",
-              icon: Shield,
-              to: "/services",
-            },
-          ],
-        },
-      ],
-    },
-    Products: {
-      tabs: [
-        {
-          title: "ERP Suites",
-          content: "End-to-end management for all verticals.",
-          icon: <Package className="w-4 h-4" />,
-          items: [
-            {
-              name: "Retail Pro",
-              desc: "Next-gen retail management.",
-              icon: Activity,
-              to: "/products",
-            },
-            {
-              name: "Auto ERP",
-              desc: "Automotive specialized suite.",
-              icon: Zap,
-              to: "/products",
-            },
-          ],
-        },
-      ],
-    },
-  };
 
   const currentMenu = activeMenu ? menuData[activeMenu] : null;
 
@@ -195,6 +186,9 @@ const MegaMenu = ({
 
 export default function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(
+    null,
+  );
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -204,6 +198,7 @@ export default function Layout() {
     window.scrollTo(0, 0);
     setActiveMenu(null);
     setIsMobileMenuOpen(false);
+    setMobileExpandedMenu(null);
     setIsSearchOpen(false);
   }, [location.pathname]);
 
@@ -220,8 +215,8 @@ export default function Layout() {
     { name: "Products", path: "/products", hasItems: true },
     { name: "Services", path: "/services", hasItems: true },
     { name: "Industries", path: "/industries" },
-    { name: "Resources", path: "/blog" },
-    { name: "Company", path: "/about" },
+    { name: "Blog", path: "/blog" },
+    { name: "About Us", path: "/about" },
   ];
 
   return (
@@ -358,25 +353,108 @@ export default function Layout() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden bg-brand-dark shadow-2xl overflow-hidden absolute w-full left-0"
+              className="lg:hidden bg-brand-dark shadow-2xl overflow-hidden absolute w-full left-0 max-h-[calc(100vh-72px)] overflow-y-auto"
             >
               <div className="px-4 py-8 space-y-4">
-                {navLinks.map((link) => (
-                  <NavLink
-                    key={link.name}
-                    to={link.path}
-                    end={link.end}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      cn(
-                        "block px-4 py-3 rounded-xl text-lg font-bold transition-colors",
-                        isActive ? "text-brand-primary" : "text-white/60",
-                      )
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                ))}
+                {navLinks.map((link) =>
+                  link.hasItems ? (
+                    <div
+                      key={link.name}
+                      className="rounded-2xl border border-white/10 bg-white/5"
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileExpandedMenu((current) =>
+                            current === link.name ? null : link.name,
+                          )
+                        }
+                        className="w-full flex items-center justify-between px-4 py-4 text-left text-white"
+                      >
+                        <span className="text-lg font-bold">{link.name}</span>
+                        <ChevronDown
+                          className={cn(
+                            "w-5 h-5 text-white/60 transition-transform",
+                            mobileExpandedMenu === link.name && "rotate-180",
+                          )}
+                        />
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {mobileExpandedMenu === link.name && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-4 pb-4 space-y-3">
+                              <NavLink
+                                to={link.path}
+                                end={link.end}
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setMobileExpandedMenu(null);
+                                }}
+                                className={({ isActive }) =>
+                                  cn(
+                                    "block rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-semibold transition-colors",
+                                    isActive
+                                      ? "text-brand-primary"
+                                      : "text-white/80",
+                                  )
+                                }
+                              >
+                                View {link.name}
+                              </NavLink>
+
+                              {menuData[link.name]?.tabs.map((tab) => (
+                                <div key={tab.title} className="space-y-2">
+                                  <div className="px-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white/30">
+                                    {tab.title}
+                                  </div>
+                                  {tab.items.map((item) => (
+                                    <Link
+                                      key={item.name}
+                                      to={item.to}
+                                      onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        setMobileExpandedMenu(null);
+                                      }}
+                                      className="block rounded-xl bg-white/[0.04] px-4 py-3 transition-colors hover:bg-white/[0.08]"
+                                    >
+                                      <div className="text-sm font-bold text-white">
+                                        {item.name}
+                                      </div>
+                                      <div className="mt-1 text-xs text-white/50">
+                                        {item.desc}
+                                      </div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <NavLink
+                      key={link.name}
+                      to={link.path}
+                      end={link.end}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={({ isActive }) =>
+                        cn(
+                          "block px-4 py-3 rounded-xl text-lg font-bold transition-colors",
+                          isActive ? "text-brand-primary" : "text-white/60",
+                        )
+                      }
+                    >
+                      {link.name}
+                    </NavLink>
+                  ),
+                )}
                 <div className="pt-4">
                   <Link
                     to="/contact"
@@ -439,7 +517,7 @@ export default function Layout() {
 
             <div>
               <h3 className="text-white font-bold mb-6 tracking-wide uppercase text-xs">
-                Company
+                About Us
               </h3>
               <ul className="space-y-4 font-medium text-slate-400 text-sm">
                 <li>
