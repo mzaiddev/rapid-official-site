@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-brand-primary: #22a9e1;
-  --color-brand-secondary: #167fb0;
-  --color-brand-dark: #081427;
+  --color-brand-primary: #28a8e0;
+  --color-brand-secondary: #1e7fac;
+  --color-brand-dark: #061121;
 }
 
 @layer components {
@@ -13,11 +13,11 @@
   .btn-pill {
     @apply px-8 py-3 rounded-full font-bold transition-all duration-200 active:scale-95 text-center flex items-center justify-center gap-2;
   }
-
+  
   .btn-primary {
     @apply px-8 py-3 rounded-full font-bold transition-all duration-200 active:scale-95 text-center flex items-center justify-center gap-2 bg-brand-primary text-white hover:bg-brand-secondary shadow-lg shadow-brand-primary/30 border-2 border-transparent;
   }
-
+  
   .btn-secondary {
     @apply px-8 py-3 rounded-full font-bold transition-all duration-200 active:scale-95 text-center flex items-center justify-center gap-2 border-2 border-brand-primary text-brand-primary hover:bg-brand-primary/5;
   }
@@ -27,55 +27,22 @@
   }
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-html {
-  background: var(--color-brand-dark);
-}
-
 body {
-  margin: 0;
   font-family: var(--font-sans);
-  background:
-    radial-gradient(
-      circle at top,
-      color-mix(in srgb, var(--color-brand-primary) 12%, transparent),
-      transparent 32%
-    ),
-    var(--color-brand-dark);
-  color: #0f172a;
-  overflow-x: hidden;
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
 
-.testimonials-track {
-  animation: none;
-}
-
 @keyframes gradient-x {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .animate-gradient-x {
@@ -83,8 +50,12 @@ body {
   background-size: 200% 200%;
 }
 
-@media (min-width: 640px) {
-  .testimonials-track {
-    animation: scroll 40s linear infinite;
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

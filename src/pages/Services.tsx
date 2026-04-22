@@ -1,282 +1,273 @@
-import { useState } from 'react';
-import { CheckCircle2, ArrowRight, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { CheckCircle2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { cn } from '../lib/utils';
 
 export default function Services() {
-  const [activeService, setActiveService] = useState('ERP Development');
+  const [searchParams] = useSearchParams();
+  const initialService = searchParams.get('service') || 'ERP Development';
+  const [activeService, setActiveService] = useState(initialService);
+  const scrollContainer = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (searchParams.get('service')) {
+      setActiveService(searchParams.get('service') as string);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (scrollContainer.current) {
+      // Small timeout to ensure DOM has rendered the new active state
+      setTimeout(() => {
+        const activeTab = scrollContainer.current?.querySelector<HTMLElement>('[data-active="true"]');
+        if (activeTab && scrollContainer.current) {
+          const container = scrollContainer.current;
+          const containerRect = container.getBoundingClientRect();
+          const tabRect = activeTab.getBoundingClientRect();
+          
+          // Calculate the horizontal center of the tab relative to the container
+          const containerCenter = containerRect.width / 2;
+          const tabCenter = (tabRect.left - containerRect.left) + (tabRect.width / 2);
+          
+          // Scroll by the difference to center the tab
+          const scrollByAmount = tabCenter - containerCenter;
+          
+          container.scrollBy({ left: scrollByAmount, behavior: 'smooth' });
+        }
+      }, 50);
+    }
+  }, [activeService]);
 
   const servicesList = [
     'ERP Development',
     'Web Development',
     'App Development',
     'Biometric Solutions',
-    'IoT Solution',
-    'AI & ML Solution',
-    'UI/UX Design',
+    'IoT Solutions',
+    'AI & ML Solutions',
+    'UI / UX Design',
     'DevOps',
-    'Middleware',
-    'Big Data Solutions',
-    'RFID Solution',
-    'Cybersecurity'
+    'Middleware Solutions',
+    'BigData Solutions',
+    'RFID Solutions',
+    'CyberSecurity'
   ];
 
   const serviceDetails = {
     'ERP Development': {
       title: 'ERP Development',
-      description: 'Empowering Businesses with Streamlined ERP Solutions. ERP systems are the backbone of efficient operations in any organization. Our ERP Development services provide businesses with fully customized, scalable, and integrated software to optimize processes, enhance productivity, and foster growth. From manufacturing to finance, our ERP solutions cater to a wide range of business needs.',
+      description1: 'Streamline and integrate your business operations with custom ERP solutions built to fit your unique needs. We design and develop scalable Enterprise Resource Planning systems that unify processes, improve efficiency, and provide real-time visibility across your organization.',
       stats: [
-        { value: '95%', label: 'Satisfaction' },
-        { value: '40%', label: 'Cost Savings' },
-        { value: '99.9%', label: 'System Uptime' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'End-to-End Integration',
-        'Real-Time Analytics',
-        'Customizable Modules',
-        'Cloud and On-Premise Options',
-        'Role-Based Access Control'
-      ],
-      benefits: [
-        'Centralizes data for improved decision-making.',
-        'Reduces operational costs by streamlining processes.',
-        'Scales with your business growth and future needs.'
+      description2: 'From finance and HR to supply chain and inventory, our ERP solutions help you manage everything from a single, powerful platform.',
+      keyServices: [
+        'Custom ERP Development',
+        'ERP Integration & Migration',
+        'Module Development (HR, Finance, Inventory, CRM)',
+        'Cloud-based ERP Solutions',
+        'ERP Maintenance & Support'
       ]
     },
     'Web Development': {
       title: 'Web Development',
-      description: 'Create a powerful online presence with our comprehensive web development services. We build responsive, fast, and secure web applications tailored to your business goals. From corporate websites to complex e-commerce platforms, our team utilizes the latest technologies to deliver exceptional user experiences.',
+      description1: 'Build a strong digital presence with modern, high-performing websites tailored to your business goals. We create responsive, secure, and user-friendly websites that deliver exceptional user experiences across all devices.',
       stats: [
-        { value: '200+', label: 'Sites Launched' },
-        { value: '50%', label: 'Conv. Increase' },
-        { value: '100%', label: 'Mobile Ready' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Custom Web Application Development',
-        'E-commerce Solutions',
-        'Content Management Systems (CMS)',
-        'Progressive Web Apps (PWA)',
-        'API Integration and Development'
-      ],
-      benefits: [
-        'Enhance brand visibility and reach a wider audience.',
-        'Provide seamless user experiences across all devices.',
-        'Ensure high performance and robust security.'
+      description2: 'Whether you need a corporate website, e-commerce platform, or custom web application, we bring your vision to life with cutting-edge technologies.',
+      keyServices: [
+        'Custom Website Development',
+        'E-commerce Development',
+        'CMS Development (WordPress, Drupal)',
+        'Web Application Development',
+        'Website Maintenance & Optimization'
       ]
     },
     'App Development': {
       title: 'App Development',
-      description: 'Engage your customers on the go with custom mobile applications. We design and develop native and cross-platform apps for iOS and Android that offer intuitive interfaces and robust functionality. Turn your innovative ideas into successful mobile products.',
+      description1: 'Turn your ideas into powerful mobile applications that engage users and drive business growth. We develop high-quality, scalable apps for both Android and iOS platforms with a focus on performance and usability.',
       stats: [
-        { value: '150+', label: 'Apps Built' },
-        { value: '4.8', label: 'Avg Rating' },
-        { value: '1M+', label: 'Downloads' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'iOS and Android Native Development',
-        'Cross-Platform Development (React Native, Flutter)',
-        'UI/UX Design for Mobile',
-        'App Store Optimization (ASO)',
-        'Ongoing Maintenance and Support'
-      ],
-      benefits: [
-        'Increase customer engagement and loyalty.',
-        'Access device-specific features (camera, GPS).',
-        'Open new revenue channels through mobile commerce.'
+      description2: 'From concept to launch, we ensure your app delivers a seamless experience and meets your business objectives.',
+      keyServices: [
+        'Android & iOS App Development',
+        'Cross-platform App Development (Flutter, React Native)',
+        'UI/UX-Focused App Design',
+        'App Testing & Quality Assurance',
+        'App Maintenance & Upgrades'
       ]
     },
     'Biometric Solutions': {
       title: 'Biometric Solutions',
-      description: 'Enhance security and streamline access with our advanced biometric solutions. We integrate fingerprint, facial recognition, and iris scanning technologies into your existing systems for reliable identity verification and access control.',
+      description1: 'Secure and simplify identity verification with advanced biometric solutions. We provide reliable authentication systems using unique biological traits such as fingerprints, facial recognition, and iris scanning.',
       stats: [
-        { value: '99.9%', label: 'Accuracy' },
-        { value: '<1s', label: 'Auth Time' },
-        { value: '100%', label: 'Compliant' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Fingerprint and Facial Recognition',
-        'Time and Attendance Tracking',
-        'Access Control Systems',
-        'Integration with HR and ERP Systems',
-        'Secure Data Encryption'
-      ],
-      benefits: [
-        'Eliminate buddy punching and time theft.',
-        'Enhance physical and logical security.',
-        'Provide a frictionless experience for users.'
+      description2: 'Our biometric solutions enhance security while improving user convenience across various applications.',
+      keyServices: [
+        'Fingerprint Recognition Systems',
+        'Facial Recognition Solutions',
+        'Iris & Retina Scanning',
+        'Time & Attendance Systems',
+        'Access Control & Identity Management'
       ]
     },
-    'IoT Solution': {
-      title: 'IoT Solution',
-      description: 'Connect your devices and unlock the power of data with our Internet of Things (IoT) solutions. We help businesses build smart environments, monitor assets in real-time, and automate processes to drive efficiency and innovation.',
+    'IoT Solutions': {
+      title: 'IoT',
+      description1: 'Connect, monitor, and control your devices with our end-to-end Internet of Things (IoT) solutions. We enable businesses to harness real-time data for smarter operations and improved efficiency.',
       stats: [
-        { value: '50K+', label: 'Nodes' },
-        { value: '30%', label: 'Efficiency' },
-        { value: '24/7', label: 'Monitoring' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'IoT Architecture Design',
-        'Sensor Integration and Data Collection',
-        'Real-time Analytics Dashboards',
-        'Predictive Maintenance Alerts',
-        'Smart Asset Tracking'
-      ],
-      benefits: [
-        'Gain real-time visibility into operations.',
-        'Reduce downtime with predictive maintenance.',
-        'Create new business models and revenue streams.'
+      description2: 'From smart sensors to cloud integration, our IoT solutions are designed to streamline processes, reduce costs, and enhance visibility across your ecosystem.',
+      keyServices: [
+        'Smart Device Integration',
+        'IoT Platform Development',
+        'Real-time Monitoring & Analytics',
+        'Industrial IoT (IIoT) Solutions',
+        'Edge Computing & Automation'
       ]
     },
-    'AI & ML Solution': {
-      title: 'AI & ML Solution',
-      description: 'Leverage Artificial Intelligence and Machine Learning to transform your data into actionable insights. We build intelligent systems that automate tasks, predict trends, and personalize customer experiences, giving you a competitive edge.',
+    'AI & ML Solutions': {
+      title: 'AI & ML',
+      description1: 'Transform your business with intelligent, data-driven solutions. We help you leverage Artificial Intelligence and Machine Learning to automate processes, uncover insights, and enhance decision-making.',
       stats: [
-        { value: '45%', label: 'Automation' },
-        { value: '3x', label: 'Faster Intel' },
-        { value: '90%', label: 'Pred. Acc.' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Predictive Analytics and Forecasting',
+      description2: 'Our AI & ML services include predictive analytics, natural language processing, computer vision, and custom model development tailored to your business needs. Whether you\'re looking to optimize operations or create innovative products, we deliver scalable and future-ready solutions.',
+      keyServices: [
+        'Predictive Analytics & Forecasting',
         'Natural Language Processing (NLP)',
-        'Computer Vision and Image Recognition',
-        'Chatbots and Virtual Assistants',
-        'Recommendation Engines'
-      ],
-      benefits: [
-        'Automate repetitive and time-consuming tasks.',
-        'Make data-driven decisions with high confidence.',
-        'Deliver highly personalized customer experiences.'
+        'Computer Vision Solutions',
+        'AI Chatbots & Virtual Assistants',
+        'Custom Machine Learning Models'
       ]
     },
-    'UI/UX Design': {
-      title: 'UI/UX Design',
-      description: 'Deliver exceptional digital experiences with our user-centric UI/UX design services. We combine aesthetics with functionality to create intuitive interfaces that delight users and drive engagement across web and mobile platforms.',
+    'UI / UX Design': {
+      title: 'UI / UX Design',
+      description1: 'Create meaningful and engaging digital experiences with our user-centric UI/UX design services. We focus on understanding user behavior to design intuitive, visually appealing interfaces that enhance usability and satisfaction.',
       stats: [
-        { value: '85%', label: 'Retention' },
-        { value: '2x', label: 'Engagement' },
-        { value: '100%', label: 'User-Centric' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'User Research and Persona Development',
-        'Wireframing and Prototyping',
-        'Visual Design and Branding',
+      description2: 'Our designs not only look great but also improve conversion rates and user engagement.',
+      keyServices: [
+        'User Research & Analysis',
+        'Wireframing & Prototyping',
+        'Mobile & Web UI Design',
         'Usability Testing',
         'Interaction Design'
-      ],
-      benefits: [
-        'Increase user satisfaction and loyalty.',
-        'Reduce development costs by catching issues early.',
-        'Boost conversion rates through intuitive navigation.'
       ]
     },
     'DevOps': {
       title: 'DevOps',
-      description: 'Accelerate your software delivery lifecycle with our DevOps services. We implement continuous integration and continuous deployment (CI/CD) pipelines, automate infrastructure provisioning, and foster collaboration between development and operations teams.',
+      description1: 'Accelerate your software delivery with our DevOps expertise. We bridge the gap between development and operations to enable faster, more reliable releases.',
       stats: [
-        { value: '60%', label: 'Faster TTL' },
-        { value: '99.99%', label: 'Reliability' },
-        { value: '50%', label: 'Fewer Fails' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'CI/CD Pipeline Setup',
-        'Infrastructure as Code (IaC)',
+      description2: 'Our DevOps solutions focus on automation, continuous integration, and scalable infrastructure, helping you improve efficiency and reduce time-to-market.',
+      keyServices: [
+        'CI/CD Pipeline Implementation',
+        'Cloud Infrastructure Management',
         'Containerization (Docker, Kubernetes)',
-        'Automated Testing Integration',
-        'Continuous Monitoring and Logging'
-      ],
-      benefits: [
-        'Release software faster and more frequently.',
-        'Improve system stability and reliability.',
-        'Reduce manual errors through automation.'
+        'Infrastructure as Code (IaC)',
+        'Monitoring & Performance Optimization'
       ]
     },
-    'Middleware': {
-      title: 'Middleware',
-      description: 'Connect disparate systems and applications seamlessly with our Middleware solutions. We facilitate smooth data exchange and communication across your enterprise architecture, ensuring interoperability and eliminating data silos.',
+    'Middleware Solutions': {
+      title: 'Middleware Solutions',
+      description1: 'Streamline communication between your applications and systems with our reliable middleware solutions. We help integrate diverse platforms, ensuring seamless data flow and improved system performance.',
       stats: [
-        { value: '100%', label: 'Interop' },
-        { value: '40%', label: 'Cost Reduce' },
-        { value: 'Real-time', label: 'Data Sync' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Enterprise Service Bus (ESB) Implementation',
-        'API Gateway Setup and Management',
-        'Data Transformation and Routing',
-        'Legacy System Integration',
-        'Message Queuing and Event Streaming'
-      ],
-      benefits: [
-        'Enable seamless communication between applications.',
-        'Extend the lifespan of legacy systems.',
-        'Simplify IT architecture and reduce maintenance.'
+      description2: 'Our middleware services enable businesses to connect legacy systems with modern applications, enhancing scalability, flexibility, and efficiency across operations.',
+      keyServices: [
+        'Application Integration',
+        'API Development & Management',
+        'Enterprise Service Bus (ESB) Solutions',
+        'Message Queuing & Event Streaming',
+        'Legacy System Integration'
       ]
     },
-    'Big Data Solutions': {
+    'BigData Solutions': {
       title: 'Big Data Solutions',
-      description: 'Harness the power of massive datasets with our Big Data solutions. We build scalable data architectures that allow you to store, process, and analyze complex data, uncovering hidden patterns and driving strategic business decisions.',
+      description1: 'Unlock the power of your data with advanced big data solutions. We help you collect, process, and analyze massive datasets to gain actionable insights and drive smarter business decisions.',
       stats: [
-        { value: 'PBs', label: 'Processed' },
-        { value: '10x', label: 'Faster Query' },
-        { value: '360°', label: 'Visibility' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Data Lake and Data Warehouse Setup',
-        'Real-time Data Processing (Spark, Kafka)',
-        'Data Mining and Pattern Recognition',
-        'Business Intelligence (BI) Dashboards',
-        'Data Governance and Security'
-      ],
-      benefits: [
-        'Make informed decisions based on comprehensive data.',
-        'Identify new market opportunities and trends.',
-        'Optimize operations through deep analytical insights.'
+      description2: 'Our solutions are designed to handle high-volume, high-velocity, and high-variety data while ensuring performance, security, and scalability.',
+      keyServices: [
+        'Data Engineering & ETL Pipelines',
+        'Data Warehousing & Data Lakes',
+        'Real-time Data Processing',
+        'Advanced Analytics & Visualization',
+        'Big Data Platform Implementation (Hadoop, Spark)'
       ]
     },
-    'RFID Solution': {
-      title: 'RFID Solution',
-      description: 'Optimize inventory management and asset tracking with our RFID solutions. We provide end-to-end implementation of Radio Frequency Identification technology, enabling automated data capture and real-time visibility across your supply chain.',
+    'RFID Solutions': {
+      title: 'RFID Solutions',
+      description1: 'Enhance tracking, security, and automation with our RFID (Radio Frequency Identification) solutions. We provide end-to-end systems for asset tracking, inventory management, and access control.',
       stats: [
-        { value: '99%', label: 'Accuracy' },
-        { value: '80%', label: 'Less Manual' },
-        { value: '100%', label: 'Traceability' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'RFID Tagging and Hardware Setup',
-        'Real-time Asset Tracking',
-        'Automated Inventory Audits',
-        'Integration with ERP and WMS',
-        'Anti-theft and Security Alerts'
-      ],
-      benefits: [
-        'Dramatically improve inventory accuracy.',
-        'Reduce labor costs associated with manual tracking.',
-        'Prevent loss and improve asset utilization.'
+      description2: 'Our RFID solutions improve operational efficiency by delivering real-time visibility and reducing manual errors.',
+      keyServices: [
+        'RFID System Design & Implementation',
+        'Asset & Inventory Tracking',
+        'Access Control Systems',
+        'Supply Chain Automation',
+        'RFID Hardware Integration'
       ]
     },
-    'Cybersecurity': {
+    'CyberSecurity': {
       title: 'Cybersecurity',
-      description: 'Protect your digital assets and sensitive data with our comprehensive Cybersecurity services. We implement robust security frameworks, conduct vulnerability assessments, and provide continuous monitoring to defend against evolving cyber threats.',
+      description1: 'Protect your digital assets with robust, proactive cybersecurity solutions. We help safeguard your systems, networks, and data from evolving threats and vulnerabilities.',
       stats: [
-        { value: '24/7', label: 'Monitoring' },
-        { value: '0', label: 'Breaches' },
-        { value: '100%', label: 'Compliance' }
+        { value: '95%', label: 'Client Satisfaction Rate' },
+        { value: '40%', label: 'Average Cost Savings' },
+        { value: '99.9%', label: 'Uptime for Critical Systems' }
       ],
-      features: [
-        'Vulnerability Assessment and Penetration Testing',
-        'Network and Endpoint Security',
-        'Data Encryption and Loss Prevention',
-        'Security Information and Event Management (SIEM)',
-        'Employee Security Awareness Training'
-      ],
-      benefits: [
-        'Safeguard sensitive business and customer data.',
-        'Ensure compliance with industry regulations.',
-        'Maintain business continuity and reputation.'
+      description2: 'Our approach combines advanced security technologies with industry best practices to ensure your business stays secure, compliant, and resilient.',
+      keyServices: [
+        'Network Security & Monitoring',
+        'Vulnerability Assessment & Penetration Testing',
+        'Data Protection & Encryption',
+        'Identity & Access Management (IAM)',
+        'Security Compliance & Risk Management'
       ]
     }
   };
 
   const activeData = serviceDetails[activeService as keyof typeof serviceDetails] || serviceDetails['ERP Development'];
+
+  const scroll = (offset: number) => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.div 
@@ -285,161 +276,103 @@ export default function Services() {
       exit={{ opacity: 0 }}
       className="flex flex-col bg-slate-50"
     >
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-brand-dark pt-24 pb-16 sm:pb-20 lg:pt-32 lg:pb-32">
-        {/* Background Gradients & Effects */}
-        <div className="absolute inset-0 z-0 overflow-hidden text-white">
-           {/* Primary Brand Glows */}
-           <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-brand-primary/20 blur-[120px] rounded-full animate-pulse transition-opacity duration-1000"></div>
-           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
-           
-           {/* Slanted Geometric Shapes (Matching Image) */}
-           <div className="absolute inset-0 z-0 flex justify-center opacity-40">
-              <div className="relative w-full h-full max-w-7xl">
-                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[-20%]"></div>
-                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/5 -skew-x-12"></div>
-                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[20%]"></div>
-                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/15 -skew-x-12 translate-x-[40%]"></div>
-              </div>
-           </div>
-
-           {/* Center Atmospheric Glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_var(--color-brand-primary)_0%,_transparent_70%)] opacity-10"></div>
-           
-           {/* Subtle Grid Pattern Overlay */}
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.div 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 px-3 py-1 text-xs font-semibold text-brand-primary sm:text-sm">
-              <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
-              Core Capabilities
-            </div>
-            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Engineering the future of enterprise.
-            </h1>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg md:text-xl">
-              From sophisticated ERP solutions to advanced AI forecasting, discover our full suite of technical proficiencies.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Content Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-          <div className="lg:hidden w-full">
-            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-              <label
-                htmlFor="service-selector"
-                className="mb-3 block text-xs font-bold uppercase tracking-[0.25em] text-slate-400"
-              >
-                Choose A Service
-              </label>
-              <div className="relative">
-                <select
-                  id="service-selector"
-                  value={activeService}
-                  onChange={(event) => setActiveService(event.target.value)}
-                  className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 pr-12 text-sm font-semibold text-slate-900 outline-none transition-all focus:border-brand-primary"
-                >
-                  {servicesList.map((service) => (
-                    <option key={service} value={service}>
-                      {service}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-              </div>
+        <div className="flex flex-col gap-12">
+          {/* Horizontal Scrollable Tabs */}
+          <div className="relative flex items-center w-full py-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+            {/* Left Fade + Button */}
+            <div className="absolute left-0 z-20 h-full w-24 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent pointer-events-none flex items-center pt-1 pb-1">
+               <button 
+                 onClick={() => scroll(-300)}
+                 className="w-11 h-11 bg-white/90 backdrop-blur-md text-slate-700 flex items-center justify-center rounded-full hover:text-brand-primary hover:bg-white hover:scale-105 hover:shadow-xl transition-all shadow-md border border-slate-200/50 pointer-events-auto shrink-0 -ml-2 sm:ml-0"
+               >
+                 <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+               </button>
             </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="relative z-20 hidden w-full flex-shrink-0 lg:sticky lg:top-32 lg:block lg:w-72">
-            <div className="bg-white border border-slate-200 rounded-3xl p-4 shadow-sm flex flex-col space-y-1">
+            
+            <div 
+              ref={scrollContainer}
+              className="flex overflow-x-auto scrollbar-hide py-6 px-12 sm:px-16 gap-3 sm:gap-4 w-full scroll-smooth mask-edges"
+            >
               {servicesList.map((service) => {
                 const isActive = activeService === service;
                 return (
                   <button
                     key={service}
+                    data-active={isActive}
                     onClick={() => setActiveService(service)}
-                    className={`px-4 py-3.5 rounded-2xl text-sm font-bold transition-all text-left relative ${
+                    className={cn(
+                      "relative whitespace-nowrap px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl text-[15px] sm:text-base font-bold transition-all duration-300 group flex-shrink-0 border",
                       isActive 
-                        ? 'text-brand-primary bg-brand-primary/5 shadow-sm' 
-                        : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                    }`}
+                        ? "text-white border-transparent" 
+                        : "bg-white text-slate-500 hover:text-slate-800 border-slate-200/60 shadow-sm hover:shadow-md hover:border-slate-300"
+                    )}
                   >
                     {isActive && (
-                      <motion.div 
-                        layoutId="activeService"
-                        className="absolute inset-0 bg-brand-primary/5 rounded-2xl -z-10"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      <motion.div
+                        layoutId="activeServiceTab"
+                        className="absolute inset-0 bg-gradient-to-r from-brand-primary to-blue-500 rounded-2xl shadow-lg shadow-brand-primary/30"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
-                    {service}
+                    <span className="relative z-10">{service}</span>
                   </button>
                 )
               })}
             </div>
+
+            {/* Right Fade + Button */}
+            <div className="absolute right-0 z-20 h-full w-24 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent pointer-events-none flex items-center justify-end pt-1 pb-1">
+               <button 
+                 onClick={() => scroll(300)}
+                 className="w-11 h-11 bg-white/90 backdrop-blur-md text-slate-700 flex items-center justify-center rounded-full hover:text-brand-primary hover:bg-white hover:scale-105 hover:shadow-xl transition-all shadow-md border border-slate-200/50 pointer-events-auto shrink-0 -mr-2 sm:mr-0"
+               >
+                 <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+               </button>
+            </div>
           </div>
           
           {/* Main Content Area */}
-          <div className="flex-grow min-w-0 w-full relative z-10">
+          <div className="w-full xl:w-[85%] mx-auto relative z-10 mt-8">
             <AnimatePresence mode="wait">
               <motion.div 
                 key={activeService}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/40"
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="bg-white rounded-3xl"
               >
-                <div className="border-b border-slate-100 p-6 sm:p-8 lg:p-12">
-                  <h3 className="mb-4 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:mb-6 lg:text-4xl">{activeData.title}</h3>
-                  <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
-                    {activeData.description}
+                <div className="py-8 px-4 sm:px-8">
+                  <h3 className="text-[28px] font-bold text-black mb-6">{activeData.title}</h3>
+                  <p className="text-[15px] text-black leading-relaxed max-w-[850px] mb-12">
+                    {activeData.description1}
                   </p>
-                </div>
-                
-                {/* Stats Ribbon */}
-                <div className="grid grid-cols-1 border-b border-white/5 bg-brand-dark text-white sm:grid-cols-3 sm:divide-x sm:divide-white/10">
-                  {activeData.stats.map((stat, idx) => (
-                    <div key={idx} className="bg-gradient-to-b from-transparent to-brand-primary/5 p-5 text-center transition-colors hover:bg-white/5 sm:p-6 lg:p-8">
-                      <div className="mb-2 bg-gradient-to-r from-brand-primary/80 to-brand-primary bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{stat.value}</div>
-                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
 
-                <div className="grid gap-8 bg-slate-50 p-6 sm:p-8 lg:grid-cols-2 lg:gap-12 lg:p-12">
-                  <div>
-                    <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Architecture Highlights</h4>
-                    <ul className="space-y-4">
-                      {activeData.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-sm font-semibold text-slate-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Stats Section matching design */}
+                  <div className="flex flex-col md:flex-row justify-between w-full max-w-[800px] mb-12 gap-8 md:gap-4 px-4 sm:px-8">
+                    {activeData.stats.map((stat, idx) => (
+                      <div key={idx} className="flex flex-col items-center flex-1">
+                        <div className="text-[44px] font-medium text-[#5AB2E8] mb-1 tracking-tight leading-none">{stat.value}</div>
+                        <div className="text-[13px] text-slate-500 whitespace-nowrap">{stat.label}</div>
+                      </div>
+                    ))}
                   </div>
-                  
-                  <div>
-                    <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Business Impact</h4>
-                    <ul className="space-y-4">
-                      {activeData.benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm font-semibold text-slate-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+
+                  <p className="text-[15px] text-black leading-relaxed max-w-[850px] mb-6">
+                    {activeData.description2}
+                  </p>
+
+                  <h4 className="font-bold text-[16px] text-black mb-4">Key Services:</h4>
+                  <ul className="space-y-1 mb-8 ml-6 list-disc marker:text-black">
+                    {activeData.keyServices.map((service, idx) => (
+                      <li key={idx} className="pl-1">
+                        <span className="text-[15px] text-black">{service}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -448,14 +381,14 @@ export default function Services() {
       </section>
       
       {/* CTA Layer */}
-      <section className="border-t border-slate-100 bg-white py-16 sm:py-20 lg:py-24">
+      <section className="py-24 bg-white border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="mb-6 text-3xl font-bold text-slate-900">Ready to scale faster?</h2>
-            <p className="mx-auto mb-8 max-w-2xl text-base text-slate-600 sm:text-lg">
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Ready to scale faster?</h2>
+            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
               Our engineering team is ready to architect the perfect solution for your enterprise. Let's discuss your technical requirements.
             </p>
             <div className="flex justify-center gap-4">
-               <Link to="/contact" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-primary px-8 py-4 font-bold text-white transition-all shadow-lg shadow-brand-primary/30 hover:bg-brand-secondary sm:w-auto">
+               <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg shadow-brand-primary/30">
                   Book Architecture Session <ArrowRight className="w-5 h-5"/>
                </Link>
             </div>

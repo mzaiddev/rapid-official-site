@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { 
   ShoppingCart, Truck, Car, Hotel, Stethoscope, Briefcase, 
   Pill, GraduationCap, Factory, Droplet, CheckCircle2,
-  ArrowRight, ChevronDown
+  ArrowRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
@@ -134,7 +134,7 @@ export default function Industries() {
       className="flex flex-col bg-slate-50"
     >
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-brand-dark pt-24 pb-16 sm:pb-20 lg:pt-32 lg:pb-32">
+      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-brand-dark">
         {/* Background Gradients & Effects */}
         <div className="absolute inset-0 z-0 overflow-hidden text-white">
            {/* Primary Brand Glows */}
@@ -164,14 +164,14 @@ export default function Industries() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 px-3 py-1 text-xs font-semibold text-brand-primary sm:text-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6">
               <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
               Vertical Solutions
             </div>
-            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
               Tailored software for complex industries.
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg md:text-xl">
+            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl">
               Discover how Rapid ERP transforms sector-specific challenges into sustainable growth strategies.
             </p>
           </motion.div>
@@ -179,43 +179,17 @@ export default function Industries() {
       </section>
 
       {/* Content Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Explore Domains</h2>
           <h3 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
             Select an industry below.
           </h3>
         </div>
         
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-          <div className="w-full lg:hidden">
-            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-              <label
-                htmlFor="industry-selector"
-                className="mb-3 block text-xs font-bold uppercase tracking-[0.25em] text-slate-400"
-              >
-                Choose A Product
-              </label>
-              <div className="relative">
-                <select
-                  id="industry-selector"
-                  value={activeIndustry}
-                  onChange={(event) => setActiveIndustry(event.target.value)}
-                  className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 pr-12 text-sm font-semibold text-slate-900 outline-none transition-all focus:border-brand-primary"
-                >
-                  {industriesList.map((industry) => (
-                    <option key={industry.id} value={industry.id}>
-                      {industry.name}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-              </div>
-            </div>
-          </div>
-
+        <div className="flex flex-col lg:flex-row gap-12 items-start">
           {/* Sidebar */}
-          <div className="relative z-20 hidden w-full flex-shrink-0 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm lg:sticky lg:top-32 lg:block lg:w-72">
+          <div className="w-full lg:w-72 flex-shrink-0 bg-white border border-slate-200 rounded-3xl p-4 shadow-sm relative z-20 lg:sticky lg:top-32">
             <div className="flex flex-col space-y-1">
               {industriesList.map((ind) => {
                 const isActive = activeIndustry === ind.id;
@@ -255,21 +229,21 @@ export default function Industries() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/40 sm:p-8 lg:p-12"
+                className="bg-white rounded-3xl border border-slate-200 p-8 lg:p-12 shadow-xl shadow-slate-200/40"
               >
-                <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-                  <div className="w-fit rounded-2xl bg-brand-primary/5 p-4 text-brand-primary">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="p-4 bg-brand-primary/5 text-brand-primary rounded-2xl">
                     {activeData.icon}
                   </div>
-                  <h3 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{activeData.title} <span className="hidden font-light text-slate-300 sm:inline-block">/</span> Software</h3>
+                  <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">{activeData.title} <span className="text-slate-300 font-light hidden sm:inline-block">/</span> Software</h3>
                 </div>
                 
-                <p className="mb-10 max-w-3xl text-base leading-relaxed text-slate-600 sm:mb-12 sm:text-lg">
+                <p className="text-lg text-slate-600 mb-12 leading-relaxed max-w-3xl">
                   {activeData.description}
                 </p>
                 
-                <div className="grid gap-8 md:grid-cols-2 md:gap-12">
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 sm:p-8">
+                <div className="grid md:grid-cols-2 gap-12">
+                  <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
                     <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Key Capabilities</h4>
                     <ul className="space-y-4">
                       {activeData.features.map((feature, idx) => (
@@ -281,7 +255,7 @@ export default function Industries() {
                     </ul>
                   </div>
                   
-                  <div className="relative overflow-hidden rounded-3xl bg-brand-dark p-6 text-white sm:p-8">
+                  <div className="bg-brand-dark rounded-3xl p-8 text-white relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/30 rounded-full blur-[60px]"></div>
                     <h4 className="font-bold text-white mb-6 flex items-center gap-2">Core Benefits</h4>
                     <ul className="space-y-4 relative z-10">
@@ -306,13 +280,13 @@ export default function Industries() {
       </section>
 
       {/* CTA Layer */}
-      <section className="border-t border-slate-200 bg-white py-16 sm:py-20 lg:py-24">
+      <section className="py-24 bg-white border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="mb-6 text-3xl font-bold text-slate-900">Not seeing your industry?</h2>
-            <p className="mx-auto mb-8 max-w-2xl text-base text-slate-600 sm:text-lg">
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Not seeing your industry?</h2>
+            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
               Our architecture is infinitely adaptable. Speak with our engineers to discover how we can forge a custom solution for your exact workflow.
             </p>
-            <Link to="/contact" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-dark px-8 py-4 font-bold text-white transition-all shadow-lg hover:bg-brand-secondary hover:shadow-brand-primary/10 sm:w-auto">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-brand-primary/10">
                Contact Solutions Team <ArrowRight className="w-5 h-5"/>
             </Link>
         </div>
