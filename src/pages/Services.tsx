@@ -1,14 +1,49 @@
-import { useState, useRef, useEffect } from 'react';
-import { CheckCircle2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { 
+  CheckCircle2, ArrowRight, ChevronLeft, ChevronRight, Play, ExternalLink,
+  Smartphone, Globe, Zap, Laptop, Palette, Brain, Wand2, BadgeCheck, Search, Monitor, Watch, Database, Fingerprint, Cpu, GitMerge, Network, BarChart3, Wifi, ShieldCheck
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { cn } from '../lib/utils';
+
+// Maps each of our 12 services to its dedicated visual styling
+const serviceVisuals: Record<string, any> = {
+  'ERP Development': { id: 'ERP Development', label: 'ERP\nDevelopment', from: '#4ADE80', to: '#16A34A', icon: Database, img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80' },
+  'Web Development': { id: 'Web Development', label: 'Web\nDevelopment', from: '#F97316', to: '#EF4444', icon: Laptop, img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80' },
+  'App Development': { id: 'App Development', label: 'App\nDevelopment', from: '#4F46E5', to: '#3B82F6', icon: Smartphone, img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80' },
+  'Biometric Solutions': { id: 'Biometric Solutions', label: 'Biometric\nSolutions', from: '#8B5CF6', to: '#6366F1', icon: Fingerprint, img: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=400&q=80' },
+  'IoT Solutions': { id: 'IoT Solutions', label: 'IoT\nSolutions', from: '#22C55E', to: '#10B981', icon: Cpu, img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80' },
+  'AI & ML Solutions': { id: 'AI & ML Solutions', label: 'AI & ML\nSolutions', from: '#EC4899', to: '#E11D48', icon: Brain, img: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=400&q=80' },
+  'UI / UX Design': { id: 'UI / UX Design', label: 'UI / UX\nDesign', from: '#F59E0B', to: '#EA580C', icon: Palette, img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=400&q=80' },
+  'DevOps': { id: 'DevOps', label: 'DevOps', from: '#06B6D4', to: '#0891B2', icon: GitMerge, img: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=400&q=80' },
+  'Middleware Solutions': { id: 'Middleware Solutions', label: 'Middleware\nSolutions', from: '#A855F7', to: '#7E22CE', icon: Network, img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80' },
+  'BigData Solutions': { id: 'BigData Solutions', label: 'BigData\nSolutions', from: '#EAB308', to: '#CA8A04', icon: BarChart3, img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80' },
+  'RFID Solutions': { id: 'RFID Solutions', label: 'RFID\nSolutions', from: '#3B82F6', to: '#2563EB', icon: Wifi, img: 'https://images.unsplash.com/photo-1586528116311-ad8ed7c8ddd3?auto=format&fit=crop&w=400&q=80' },
+  'CyberSecurity': { id: 'CyberSecurity', label: 'Cyber\nSecurity', from: '#EF4444', to: '#991B1B', icon: ShieldCheck, img: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=400&q=80' },
+};
+
+// Precisely maps 1 center blob and 11 orbiting blobs
+const blobPositions = [
+  { x: 0, y: 0, w: 320, h: 320, z: 50, shape: '45% 55% 65% 35% / 45% 45% 55% 55%', textClass: 'text-2xl sm:text-3xl', delay: 0 },
+  { x: 260, y: -160, w: 260, h: 260, z: 30, shape: '60% 40% 30% 70% / 60% 30% 70% 40%', textClass: 'text-xl', delay: 0.5 },
+  { x: -220, y: 180, w: 280, h: 280, z: 30, shape: '50% 50% 20% 80% / 25% 80% 20% 75%', textClass: 'text-xl', delay: 1 },
+  { x: -250, y: -150, w: 240, h: 240, z: 30, shape: '40% 60% 70% 30% / 40% 50% 60% 50%', textClass: 'text-lg', delay: 0.2 },
+  { x: 260, y: 190, w: 220, h: 220, z: 30, shape: '50% 50% 40% 60% / 60% 40% 50% 50%', textClass: 'text-lg', delay: 0.7 },
+  { x: 50, y: -270, w: 200, h: 140, z: 20, shape: '60% 40% 70% 30% / 70% 70% 30% 30%', textClass: 'text-base', delay: 1.2 },
+  { x: 30, y: 260, w: 200, h: 150, z: 40, shape: '40% 60% 40% 60% / 30% 70% 40% 60%', textClass: 'text-base', delay: 0.8 },
+  { x: -400, y: -70, w: 180, h: 180, z: 20, shape: '70% 30% 50% 50% / 50% 50% 70% 30%', textClass: 'text-sm', delay: 0.4 },
+  { x: -380, y: 110, w: 160, h: 160, z: 40, shape: '50%', textClass: 'text-sm', delay: 0.9 },
+  { x: -370, y: 280, w: 160, h: 160, z: 20, shape: '40% 60% 50% 50% / 50% 50% 50% 50%', textClass: 'text-sm', delay: 1.1 },
+  { x: 450, y: -80, w: 180, h: 140, z: 20, shape: '50% 50% 30% 70% / 40% 40% 60% 60%', textClass: 'text-sm', delay: 0.6 },
+  { x: 440, y: 130, w: 160, h: 160, z: 20, shape: '50% 50% 60% 40% / 50% 50% 50% 50%', textClass: 'text-sm', delay: 1.3 },
+];
 
 export default function Services() {
   const [searchParams] = useSearchParams();
   const initialService = searchParams.get('service') || 'ERP Development';
   const [activeService, setActiveService] = useState(initialService);
-  const scrollContainer = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState<'Overview' | 'Portfolio' | 'Videos'>('Overview');
 
   useEffect(() => {
     if (searchParams.get('service')) {
@@ -16,27 +51,9 @@ export default function Services() {
     }
   }, [searchParams]);
 
+  // Reset to overview when switching services
   useEffect(() => {
-    if (scrollContainer.current) {
-      // Small timeout to ensure DOM has rendered the new active state
-      setTimeout(() => {
-        const activeTab = scrollContainer.current?.querySelector<HTMLElement>('[data-active="true"]');
-        if (activeTab && scrollContainer.current) {
-          const container = scrollContainer.current;
-          const containerRect = container.getBoundingClientRect();
-          const tabRect = activeTab.getBoundingClientRect();
-          
-          // Calculate the horizontal center of the tab relative to the container
-          const containerCenter = containerRect.width / 2;
-          const tabCenter = (tabRect.left - containerRect.left) + (tabRect.width / 2);
-          
-          // Scroll by the difference to center the tab
-          const scrollByAmount = tabCenter - containerCenter;
-          
-          container.scrollBy({ left: scrollByAmount, behavior: 'smooth' });
-        }
-      }, 50);
-    }
+    setActiveSection('Overview');
   }, [activeService]);
 
   const servicesList = [
@@ -263,12 +280,6 @@ export default function Services() {
 
   const activeData = serviceDetails[activeService as keyof typeof serviceDetails] || serviceDetails['ERP Development'];
 
-  const scroll = (offset: number) => {
-    if (scrollContainer.current) {
-      scrollContainer.current.scrollBy({ left: offset, behavior: 'smooth' });
-    }
-  };
-
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -276,103 +287,366 @@ export default function Services() {
       exit={{ opacity: 0 }}
       className="flex flex-col bg-slate-50"
     >
+      {/* Animated Organic Blob Hero Section */}
+      <section className="relative w-full bg-[#111624] overflow-hidden pt-20 pb-20 sm:pt-28 sm:pb-32 border-b border-white/5">
+        {/* Decorative Grid / Background subtle effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#111624] to-[#111624] pointer-events-none" />
+
+        {/* Floating Abstract Blobs Container */}
+        <div className="relative w-full max-w-[1200px] mx-auto h-[500px] sm:h-[600px] flex items-center justify-center">
+          {/* Scaler for responsive viewing */}
+          <div className="relative w-[1000px] h-[800px] flex items-center justify-center scale-[0.45] sm:scale-[0.6] md:scale-[0.8] lg:scale-[1] origin-center -mt-10 sm:-mt-0">
+            {servicesList.map((serviceKey) => {
+              const visualData = serviceVisuals[serviceKey];
+              if (!visualData) return null;
+              
+              const isActive = activeService === serviceKey;
+              const activeIndex = servicesList.indexOf(activeService as string) || 0;
+              const rawIndex = servicesList.indexOf(serviceKey);
+              
+              // Map index 0 to Center (active), map remaining stably to 1-11
+              let configIndex = 0;
+              if (!isActive) {
+                configIndex = rawIndex < activeIndex ? rawIndex + 1 : rawIndex;
+              }
+              const config = blobPositions[configIndex];
+              const Icon = visualData.icon;
+
+              return (
+                <motion.div
+                  key={serviceKey}
+                  onClick={() => {
+                    if (!isActive) {
+                      setActiveService(serviceKey);
+                    }
+                  }}
+                  layout
+                  initial={false}
+                  animate={{
+                    left: `calc(50% + ${config.x - config.w / 2}px)`,
+                    top: `calc(50% + ${config.y - config.h / 2}px)`,
+                    width: `${config.w}px`,
+                    height: `${config.h}px`,
+                    borderRadius: config.shape,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 15,
+                    mass: 0.8
+                  }}
+                  className={cn(
+                    "absolute flex items-center justify-center p-6 text-center shadow-2xl overflow-hidden",
+                    config.z,
+                    isActive ? "cursor-default" : "cursor-pointer hover:scale-105"
+                  )}
+                  style={{
+                    background: `linear-gradient(135deg, ${visualData.from}, ${visualData.to})`,
+                    boxShadow: isActive ? 'inset 0px -10px 30px rgba(0,0,0,0.2), 0 25px 50px rgba(0,0,0,0.4), 0 0 40px rgba(59,130,246,0.3)' : 'inset 0px -10px 20px rgba(0,0,0,0.15), 0 15px 30px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  {/* Bobbing Motion Container (kept independent of layout animation) */}
+                  <motion.div
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    animate={{ y: [0, -10, 0], rotate: [0, 1, -1, 0] }}
+                    transition={{
+                      duration: 5 + config.delay,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: config.delay
+                    }}
+                  >
+                    {/* Background Overlay Image */}
+                    <div 
+                      className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center pointer-events-none" 
+                      style={{ backgroundImage: `url(${visualData.img})` }} 
+                    />
+                    
+                    <Icon
+                      className="absolute opacity-[0.15] text-white pointer-events-none transition-all duration-700"
+                      style={{
+                        width: isActive ? '140px' : '80px',
+                        height: isActive ? '140px' : '80px',
+                        left: isActive ? '90px' : '10px',
+                        top: isActive ? '90px' : '10px',
+                        transform: 'rotate(-10deg)'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  <span className={cn("relative z-10 text-white font-bold whitespace-pre-line drop-shadow-md transition-all duration-500", config.textClass)}>
+                    {visualData.label}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Content Section */}
-      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        
-        <div className="flex flex-col gap-12">
-          {/* Horizontal Scrollable Tabs */}
-          <div className="relative flex items-center w-full py-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-            {/* Left Fade + Button */}
-            <div className="absolute left-0 z-20 h-full w-24 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent pointer-events-none flex items-center pt-1 pb-1">
-               <button 
-                 onClick={() => scroll(-300)}
-                 className="w-11 h-11 bg-white/90 backdrop-blur-md text-slate-700 flex items-center justify-center rounded-full hover:text-brand-primary hover:bg-white hover:scale-105 hover:shadow-xl transition-all shadow-md border border-slate-200/50 pointer-events-auto shrink-0 -ml-2 sm:ml-0"
-               >
-                 <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-               </button>
+      <section className="py-12 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          
+          {/* Left Sidebar */}
+          <div className="w-full lg:w-[320px] flex-shrink-0 lg:pr-8 lg:border-r border-slate-100">
+            {/* Search Bar */}
+            <div className="relative mb-8 group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-brand-primary transition-colors duration-300" />
+              <input 
+                type="text" 
+                placeholder="Find a service..." 
+                className="w-full pl-11 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-[14px] focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all placeholder:text-slate-400 shadow-sm" 
+              />
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-white border border-slate-200 rounded-xl p-1.5 shadow-sm hover:bg-slate-50 cursor-pointer transition-colors">
+                 <svg className="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+              </div>
             </div>
-            
-            <div 
-              ref={scrollContainer}
-              className="flex overflow-x-auto scrollbar-hide py-6 px-12 sm:px-16 gap-3 sm:gap-4 w-full scroll-smooth mask-edges"
-            >
+
+            {/* Service List */}
+            <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[700px] scrollbar-hide pb-10">
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 mb-3">All Services</h4>
               {servicesList.map((service) => {
                 const isActive = activeService === service;
+                // Get the icon for the sidebar
+                const visualData = serviceVisuals[service];
+                const Icon = visualData ? visualData.icon : CheckCircle2;
+                
                 return (
                   <button
                     key={service}
-                    data-active={isActive}
                     onClick={() => setActiveService(service)}
                     className={cn(
-                      "relative whitespace-nowrap px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl text-[15px] sm:text-base font-bold transition-all duration-300 group flex-shrink-0 border",
+                      "text-left px-4 py-3.5 rounded-xl text-[14px] transition-all relative group flex items-center gap-3 w-full",
                       isActive 
-                        ? "text-white border-transparent" 
-                        : "bg-white text-slate-500 hover:text-slate-800 border-slate-200/60 shadow-sm hover:shadow-md hover:border-slate-300"
+                        ? "text-brand-primary font-semibold bg-blue-50/80 shadow-sm ring-1 ring-blue-100" 
+                        : "text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50"
                     )}
                   >
                     {isActive && (
-                      <motion.div
-                        layoutId="activeServiceTab"
-                        className="absolute inset-0 bg-gradient-to-r from-brand-primary to-blue-500 rounded-2xl shadow-lg shadow-brand-primary/30"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      <motion.div 
+                         layoutId="activeSidebarIndicator"
+                         className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-7 bg-brand-primary rounded-r-md shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
-                    <span className="relative z-10">{service}</span>
+                    <Icon className={cn(
+                      "w-4 h-4 transition-colors duration-300",
+                      isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
+                    )} />
+                    <span className="truncate">{service}</span>
                   </button>
                 )
               })}
             </div>
-
-            {/* Right Fade + Button */}
-            <div className="absolute right-0 z-20 h-full w-24 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent pointer-events-none flex items-center justify-end pt-1 pb-1">
-               <button 
-                 onClick={() => scroll(300)}
-                 className="w-11 h-11 bg-white/90 backdrop-blur-md text-slate-700 flex items-center justify-center rounded-full hover:text-brand-primary hover:bg-white hover:scale-105 hover:shadow-xl transition-all shadow-md border border-slate-200/50 pointer-events-auto shrink-0 -mr-2 sm:mr-0"
-               >
-                 <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-               </button>
-            </div>
           </div>
-          
-          {/* Main Content Area */}
-          <div className="w-full xl:w-[85%] mx-auto relative z-10 mt-8">
+
+          {/* Right Main Content */}
+          <div className="flex-1 min-w-0 lg:pl-6">
+            {/* Top Navigation Tabs (Pills style) */}
+            <div className="flex items-center gap-2 mb-10 overflow-x-auto scrollbar-hide pb-2">
+              <button 
+                onClick={() => setActiveSection('Overview')}
+                className={cn(
+                  "whitespace-nowrap px-6 py-2.5 rounded-full text-[14px] transition-all",
+                  activeSection === 'Overview' 
+                    ? "font-semibold bg-[#4F46E5] text-white shadow-md shadow-indigo-500/20" 
+                    : "font-medium bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/60"
+                )}
+              >
+                Overview
+              </button>
+              <button 
+                onClick={() => setActiveSection('Portfolio')}
+                className={cn(
+                  "whitespace-nowrap px-6 py-2.5 rounded-full text-[14px] transition-all",
+                  activeSection === 'Portfolio' 
+                    ? "font-semibold bg-[#4F46E5] text-white shadow-md shadow-indigo-500/20" 
+                    : "font-medium bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/60"
+                )}
+              >
+                Portfolio
+              </button>
+              <button 
+                onClick={() => setActiveSection('Videos')}
+                className={cn(
+                  "whitespace-nowrap px-6 py-2.5 rounded-full text-[14px] transition-all",
+                  activeSection === 'Videos' 
+                    ? "font-semibold bg-[#4F46E5] text-white shadow-md shadow-indigo-500/20" 
+                    : "font-medium bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/60"
+                )}
+              >
+                Videos
+              </button>
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.div 
-                key={activeService}
-                initial={{ opacity: 0, y: 10 }}
+                key={`${activeService}-${activeSection}`}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="bg-white rounded-3xl"
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="w-full relative min-h-[400px]"
               >
-                <div className="py-8 px-4 sm:px-8">
-                  <h3 className="text-[28px] font-bold text-black mb-6">{activeData.title}</h3>
-                  <p className="text-[15px] text-black leading-relaxed max-w-[850px] mb-12">
-                    {activeData.description1}
-                  </p>
-
-                  {/* Stats Section matching design */}
-                  <div className="flex flex-col md:flex-row justify-between w-full max-w-[800px] mb-12 gap-8 md:gap-4 px-4 sm:px-8">
-                    {activeData.stats.map((stat, idx) => (
-                      <div key={idx} className="flex flex-col items-center flex-1">
-                        <div className="text-[44px] font-medium text-[#5AB2E8] mb-1 tracking-tight leading-none">{stat.value}</div>
-                        <div className="text-[13px] text-slate-500 whitespace-nowrap">{stat.label}</div>
-                      </div>
-                    ))}
+                {/* Center Watermark Logo */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] flex items-center justify-center z-0 w-full overflow-hidden">
+                  <img src="/logo.png" alt="Watermark" className="w-[80%] max-w-[500px] object-contain" onError={(e) => { (e.target as HTMLImageElement).src = '/logo.svg'; }} />
+                </div>
+                
+                <div className="relative z-10">
+                  {/* Content Header (Consistent across all sections) */}
+                  <div className="flex items-center gap-4 mb-8">
+                     <div className="w-[4px] h-8 bg-brand-primary rounded-full"></div>
+                     <h2 className="text-[32px] sm:text-[36px] font-bold text-slate-900 tracking-tight leading-tight">{activeData.title} {activeSection !== 'Overview' && <span className="text-slate-400 font-light">/ {activeSection}</span>}</h2>
                   </div>
 
-                  <p className="text-[15px] text-black leading-relaxed max-w-[850px] mb-6">
-                    {activeData.description2}
-                  </p>
+                  {activeSection === 'Overview' && (
+                  <div className="prose prose-slate max-w-none">
+                    <p className="text-[16px] text-slate-600 leading-relaxed font-normal mb-10 max-w-[900px]">
+                      {activeData.description1}
+                    </p>
 
-                  <h4 className="font-bold text-[16px] text-black mb-4">Key Services:</h4>
-                  <ul className="space-y-1 mb-8 ml-6 list-disc marker:text-black">
-                    {activeData.keyServices.map((service, idx) => (
-                      <li key={idx} className="pl-1">
-                        <span className="text-[15px] text-black">{service}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    {/* Re-added Stats Section inline */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-8 py-10 px-4 sm:px-12 bg-slate-50/50 rounded-3xl border border-slate-100 mb-10">
+                      {activeData.stats.map((stat, idx) => (
+                        <div key={idx} className="flex flex-col items-center flex-1 text-center group">
+                          <div className="text-[48px] sm:text-[56px] font-bold text-[#5AB2E8] mb-2 tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300">
+                             {stat.value}
+                          </div>
+                          <div className="text-[14px] font-medium text-slate-500 max-w-[150px]">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="text-[16px] text-slate-600 leading-relaxed font-normal mb-12 max-w-[900px]">
+                      {activeData.description2}
+                    </p>
+
+                    <h3 className="text-[16px] font-bold text-black mb-4">Key Services:</h3>
+                    <ul className="list-disc ml-6 space-y-2 mb-10 marker:text-black">
+                      {activeData.keyServices.map((service, idx) => (
+                        <li key={idx}>
+                          <span className="text-[15px] text-black font-normal">{service}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <h3 className="text-[16px] font-bold text-black mb-4">Key Benefits:</h3>
+                    <ul className="list-disc ml-6 space-y-2 mb-10 marker:text-black">
+                      <li><span className="text-[15px] text-black font-normal">Enhanced brand presence with modern UI/UX design</span></li>
+                      <li><span className="text-[15px] text-black font-normal">High-performance solutions optimized for speed and SEO</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Mobile-first responsive design for all devices</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Scalable architecture for future business growth</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Secure and reliable infrastructure</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Improved conversion rates and user engagement</span></li>
+                    </ul>
+
+                    <h3 className="text-[16px] font-bold text-black mb-4">Technologies We Use:</h3>
+                    <ul className="list-disc ml-6 space-y-2 mb-12 marker:text-black">
+                      <li><span className="text-[15px] text-black font-normal">Frontend: React, Vue, Angular</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Backend: Node.js, Laravel, .NET, Python</span></li>
+                      <li><span className="text-[15px] text-black font-normal">CMS: WordPress, Drupal</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Database: MySQL, MongoDB, PostgreSQL</span></li>
+                      <li><span className="text-[15px] text-black font-normal">Cloud: AWS, Google Cloud, Azure</span></li>
+                    </ul>
+                  </div>
+                )}
+
+                {activeSection === 'Portfolio' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+                     <div className="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+                       <div className="h-56 overflow-hidden relative bg-slate-100">
+                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Portfolio 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span className="text-white font-medium text-sm flex items-center gap-2">View Case Study <ArrowRight className="w-4 h-4"/></span>
+                         </div>
+                       </div>
+                       <div className="p-6">
+                          <h4 className="font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">Global Logistics Platform</h4>
+                          <p className="text-sm text-slate-600 mb-5 line-clamp-2">A complete digital transformation of a legacy supply chain system, improving tracking accuracy by 99%.</p>
+                          <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-brand-primary uppercase tracking-wider">
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">React</span>
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">Node.js</span>
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">AWS</span>
+                          </div>
+                       </div>
+                     </div>
+
+                     <div className="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+                       <div className="h-56 overflow-hidden relative bg-slate-100">
+                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Portfolio 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span className="text-white font-medium text-sm flex items-center gap-2">View Case Study <ArrowRight className="w-4 h-4"/></span>
+                         </div>
+                       </div>
+                       <div className="p-6">
+                          <h4 className="font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">Enterprise Data Dashboard</h4>
+                          <p className="text-sm text-slate-600 mb-5 line-clamp-2">Real-time analytics engine processing over 5M+ daily events for a major financial institution.</p>
+                          <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-brand-primary uppercase tracking-wider">
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">Vue.js</span>
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">Python</span>
+                            <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">PostgreSQL</span>
+                          </div>
+                       </div>
+                     </div>
+                     
+                     <div className="col-span-1 md:col-span-2 group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 mt-2">
+                        <div className="flex flex-col md:flex-row">
+                          <div className="md:w-2/5 h-48 md:h-auto overflow-hidden relative bg-slate-100">
+                             <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=80" alt="Portfolio 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                          </div>
+                          <div className="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                              <h4 className="font-bold text-slate-900 mb-2 text-lg group-hover:text-brand-primary transition-colors">Healthcare Portal & Booking System</h4>
+                              <p className="text-sm text-slate-600 mb-6">Fully compliant patient management ecosystem with telemedicine capabilities, reducing wait times.</p>
+                              <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-brand-primary uppercase tracking-wider">
+                                <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">Angular</span>
+                                <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">.NET</span>
+                                <span className="px-2.5 py-1 bg-brand-primary/10 rounded-md">Azure Health</span>
+                              </div>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+                )}
+
+                {activeSection === 'Videos' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+                     <div className="group">
+                       <div className="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 bg-slate-100 aspect-video">
+                         <iframe 
+                           className="absolute inset-0 w-full h-full"
+                           src="https://www.youtube.com/embed/LXb3EKWsInQ?rel=0" 
+                           title="Product Demo Video" 
+                           frameBorder="0" 
+                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                           allowFullScreen
+                         ></iframe>
+                       </div>
+                       <div className="mt-5 px-1">
+                         <h4 className="font-bold text-slate-900 group-hover:text-brand-primary transition-colors text-lg">How we built the {activeData.title} system</h4>
+                         <p className="text-[15px] text-slate-500 mt-2 line-clamp-2">A technical walkthrough and architecture deep-dive of our {activeData.title.toLowerCase()} implementation strategies.</p>
+                       </div>
+                     </div>
+
+                     <div className="group">
+                       <div className="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 bg-slate-100 aspect-video">
+                         <iframe 
+                           className="absolute inset-0 w-full h-full"
+                           src="https://www.youtube.com/embed/bON-KPiiNCk?rel=0" 
+                           title="Client Success Story Video" 
+                           frameBorder="0" 
+                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                           allowFullScreen
+                         ></iframe>
+                       </div>
+                       <div className="mt-5 px-1">
+                         <h4 className="font-bold text-slate-900 group-hover:text-brand-primary transition-colors text-lg">Client Success Story: {activeData.title}</h4>
+                         <p className="text-[15px] text-slate-500 mt-2 line-clamp-2">Hear directly from our enterprise clients on how our {activeData.title.toLowerCase()} skyrocketed their growth.</p>
+                       </div>
+                     </div>
+                  </div>
+                )}
                 </div>
               </motion.div>
             </AnimatePresence>
