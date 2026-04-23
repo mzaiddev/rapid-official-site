@@ -131,33 +131,19 @@ export default function Industries() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col bg-slate-50"
+      className="flex flex-col bg-[#060D1A] min-h-screen font-sans selection:bg-brand-primary/30 selection:text-white"
     >
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-brand-dark">
-        {/* Background Gradients & Effects */}
-        <div className="absolute inset-0 z-0 overflow-hidden text-white">
-           {/* Primary Brand Glows */}
-           <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-brand-primary/20 blur-[120px] rounded-full animate-pulse transition-opacity duration-1000"></div>
-           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
-           
-           {/* Slanted Geometric Shapes (Matching Image) */}
-           <div className="absolute inset-0 z-0 flex justify-center opacity-40">
-              <div className="relative w-full h-full max-w-7xl">
-                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[-20%]"></div>
-                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/5 -skew-x-12"></div>
-                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[20%]"></div>
-                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/15 -skew-x-12 translate-x-[40%]"></div>
-              </div>
-           </div>
-
-           {/* Center Atmospheric Glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_var(--color-brand-primary)_0%,_transparent_70%)] opacity-10"></div>
-           
-           {/* Subtle Grid Pattern Overlay */}
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
+      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex items-center justify-center">
+         {/* Minimalist Grid & Glow Background */}
+        <div className="absolute inset-0 z-0 bg-[#060D1A]">
+          {/* Subtle dotted grid overlay mapping to layout */ }
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_30%,transparent_100%)]"></div>
+          {/* Elegant top ambient glow completely different from the chaotic blurs */}
+          <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-brand-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -179,17 +165,17 @@ export default function Industries() {
       </section>
 
       {/* Content Section */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Explore Domains</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+          <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
             Select an industry below.
           </h3>
         </div>
         
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           {/* Sidebar */}
-          <div className="w-full lg:w-72 flex-shrink-0 bg-white border border-slate-200 rounded-3xl p-4 shadow-sm relative z-20 lg:sticky lg:top-32">
+          <div className="w-full lg:w-72 flex-shrink-0 bg-[#111624] border border-white/5 rounded-3xl p-4 shadow-sm relative z-20 lg:sticky lg:top-32">
             <div className="flex flex-col space-y-1">
               {industriesList.map((ind) => {
                 const isActive = activeIndustry === ind.id;
@@ -199,14 +185,14 @@ export default function Industries() {
                     onClick={() => setActiveIndustry(ind.id)}
                     className={`flex items-center gap-3 px-4 py-4 rounded-2xl text-sm font-bold transition-all text-left relative ${
                       isActive 
-                        ? 'text-brand-primary bg-brand-primary/5 shadow-sm' 
-                        : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        ? 'text-brand-primary bg-brand-primary/10 shadow-sm ring-1 ring-brand-primary/40' 
+                        : 'text-slate-400 hover:text-white hover:bg-[#1A2234]'
                     }`}
                   >
                     {isActive && (
                       <motion.div 
                         layoutId="activeInd"
-                        className="absolute inset-0 bg-brand-primary/5 rounded-2xl -z-10"
+                        className="absolute inset-0 bg-brand-primary/10 rounded-2xl -z-10"
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
@@ -229,34 +215,34 @@ export default function Industries() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-3xl border border-slate-200 p-8 lg:p-12 shadow-xl shadow-slate-200/40"
+                className="bg-[#111624] rounded-3xl border border-white/5 p-8 lg:p-12 shadow-xl shadow-black/20"
               >
                 <div className="flex items-center gap-6 mb-8">
-                  <div className="p-4 bg-brand-primary/5 text-brand-primary rounded-2xl">
+                  <div className="p-4 bg-brand-primary/10 text-brand-primary rounded-2xl">
                     {activeData.icon}
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">{activeData.title} <span className="text-slate-300 font-light hidden sm:inline-block">/</span> Software</h3>
+                  <h3 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">{activeData.title} <span className="text-slate-500 font-light hidden sm:inline-block">/</span> Software</h3>
                 </div>
                 
-                <p className="text-lg text-slate-600 mb-12 leading-relaxed max-w-3xl">
+                <p className="text-lg text-slate-400 mb-12 leading-relaxed max-w-3xl">
                   {activeData.description}
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-12">
-                  <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
-                    <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">Key Capabilities</h4>
+                  <div className="bg-[#0B1120] rounded-3xl p-8 border border-white/5">
+                    <h4 className="font-bold text-white mb-6 flex items-center gap-2">Key Capabilities</h4>
                     <ul className="space-y-4">
                       {activeData.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm font-semibold text-slate-700">{feature}</span>
+                          <span className="text-sm font-semibold text-slate-300">{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   
-                  <div className="bg-brand-dark rounded-3xl p-8 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/30 rounded-full blur-[60px]"></div>
+                  <div className="bg-brand-dark border border-white/5 rounded-3xl p-8 text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/20 rounded-full blur-[60px]"></div>
                     <h4 className="font-bold text-white mb-6 flex items-center gap-2">Core Benefits</h4>
                     <ul className="space-y-4 relative z-10">
                       {activeData.benefits.map((benefit, idx) => (
@@ -280,13 +266,13 @@ export default function Industries() {
       </section>
 
       {/* CTA Layer */}
-      <section className="py-24 bg-white border-t border-slate-200">
+      <section className="py-24 bg-transparent border-t border-white/5 relative z-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Not seeing your industry?</h2>
-            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-white mb-6">Not seeing your industry?</h2>
+            <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
               Our architecture is infinitely adaptable. Speak with our engineers to discover how we can forge a custom solution for your exact workflow.
             </p>
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-brand-primary/10">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-brand-primary/30">
                Contact Solutions Team <ArrowRight className="w-5 h-5"/>
             </Link>
         </div>

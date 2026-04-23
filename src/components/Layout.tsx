@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, Search, Globe, ChevronDown, ChevronUp, ChevronRight, Package, Activity, Zap, Shield, Warehouse, BrainCircuit, Cloud, Layout as LayoutIcon, Smartphone, PenTool, Server, Database, Scan, Fingerprint, Cpu, ShieldCheck, Infinity } from 'lucide-react';
+import { Menu, X, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, Search, Globe, ChevronDown, ChevronUp, ChevronRight, Package, Activity, Zap, Shield, Warehouse, BrainCircuit, Cloud, Layout as LayoutIcon, Smartphone, PenTool, Server, Database, Scan, Fingerprint, Cpu, ShieldCheck, Infinity, Info, Briefcase, Award, HelpCircle } from 'lucide-react';
 import { useState, useEffect, ReactNode } from 'react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -16,6 +16,49 @@ const Logo = () => (
     />
   </div>
 );
+
+const AboutMegaMenu = ({ isOpen, activeMenu, onClose }: { isOpen: boolean; activeMenu: string | null; onClose: () => void }) => {
+  if (activeMenu !== 'About Us') return null;
+
+  const items = [
+    { name: 'About Us', desc: 'Our mission, vision, and values.', path: '/about', icon: Info },
+    { name: 'Career', desc: 'Exciting opportunities to grow.', path: '/career', icon: Briefcase },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      onMouseLeave={onClose}
+      className="absolute top-full left-1/2 -translate-x-1/2 w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-50 p-6 md:p-10"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        {items.map((item, idx) => {
+          const Icon = item.icon;
+          return (
+            <Link 
+              key={idx} 
+              to={item.path}
+              onClick={onClose}
+              className="group flex items-start gap-4 p-3 -m-3 rounded-2xl hover:bg-slate-50 transition-colors"
+            >
+              <div className="mt-1 flex-shrink-0 text-slate-400 group-hover:text-brand-primary transition-colors">
+                <Icon className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="font-bold text-slate-900 group-hover:text-brand-primary transition-colors">{item.name}</span>
+                </div>
+                <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+};
 
 const MegaMenu = ({ isOpen, activeMenu, onClose }: { isOpen: boolean; activeMenu: string | null; onClose: () => void }) => {
   if (activeMenu !== 'Services') return null;
@@ -110,9 +153,8 @@ export default function Layout() {
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/industries' },
     { name: 'Services', path: '/services', hasItems: true },
-    { name: 'Industries', path: '/industries' },
-    { name: 'Resources', path: '/blog' },
-    { name: 'Company', path: '/about' },
+    { name: 'Technology', path: '/technology' },
+    { name: 'About Us', path: '/about', hasItems: true },
   ];
 
   return (
@@ -120,10 +162,10 @@ export default function Layout() {
       {/* Navbar */}
       <header 
         className={cn(
-          "fixed top-0 w-full z-50 transition-all duration-300 border-b",
+          "fixed top-0 w-full z-50 transition-all duration-300",
           scrolled 
-            ? "bg-brand-dark/95 backdrop-blur-md py-4 shadow-xl border-brand-primary/10" 
-            : "bg-brand-dark py-6 border-transparent"
+            ? "bg-brand-dark/95 backdrop-blur-md py-4 shadow-xl border-b border-brand-primary/10" 
+            : "bg-brand-dark py-6 border-b border-transparent"
         )}
       >
         {/* Subtle Header Glow */}
@@ -160,7 +202,7 @@ export default function Layout() {
                     }}
                     className={cn(
                       "px-4 py-2 text-sm font-bold flex items-center gap-1 transition-all duration-200",
-                      location.pathname === link.path ? "text-brand-primary" : "text-white/80 hover:text-white"
+                      location.pathname === link.path && !link.hasItems ? "text-brand-primary" : "text-white/80 hover:text-white"
                     )}
                   >
                     {link.name}
@@ -189,7 +231,7 @@ export default function Layout() {
                       <input 
                         type="text" 
                         placeholder="Search modules..."
-                        className="bg-transparent border-b border-white/20 text-white text-sm outline-none w-full px-2 py-1"
+                        className="bg-transparent border-b border-brand-primary/40 focus:border-brand-primary text-white text-sm outline-none w-full px-2 py-1 transition-colors"
                         autoFocus
                       />
                       <button 
@@ -234,8 +276,15 @@ export default function Layout() {
 
         {/* Mega Menu Overlay */}
         <AnimatePresence>
-          {activeMenu && (
+          {activeMenu === 'Services' && (
             <MegaMenu 
+              isOpen={!!activeMenu} 
+              activeMenu={activeMenu} 
+              onClose={() => setActiveMenu(null)} 
+            />
+          )}
+          {activeMenu === 'About Us' && (
+            <AboutMegaMenu 
               isOpen={!!activeMenu} 
               activeMenu={activeMenu} 
               onClose={() => setActiveMenu(null)} 

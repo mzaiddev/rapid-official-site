@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import JobApplication from './pages/JobApplication';
+import Technology from './pages/Technology';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="industries" element={<Industries />} />
           <Route path="services" element={<Services />} />
+          <Route path="technology" element={<Technology />} />
           <Route path="about" element={<About />} />
           <Route path="career" element={<Career />} />
           <Route path="career/:id" element={<JobApplication />} />

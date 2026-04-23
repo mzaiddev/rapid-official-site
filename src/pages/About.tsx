@@ -1,284 +1,290 @@
-import { Users, Target, Award, ArrowRight, CheckCircle2, Linkedin, MapPin, Phone, Mail, Globe, Clock, Rocket, Zap, Brain } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Award, Trophy, Medal, Star, Crown, ShieldCheck } from 'lucide-react';
+import { cn } from '../lib/utils';
+import { useEffect, ReactNode } from 'react';
+
+// Reusable Section Header with vertical bar
+const SectionHeader = ({ title }: { title: string }) => (
+  <div className="flex items-center gap-4 mb-10">
+    <div className="w-[4px] h-8 bg-brand-primary rounded-full"></div>
+    <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{title}</h2>
+  </div>
+);
+
+// Reusable Grid layout for Logo Cards
+const LogoGrid = ({ children }: { children: ReactNode }) => (
+  <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+    {children}
+  </div>
+);
+
+// Reusable Card for Logos
+const LogoCard = ({ children }: { children: ReactNode }) => (
+  <div className="bg-[#111624] border border-white/5 rounded-2xl p-6 sm:p-8 flex items-center justify-center hover:border-brand-primary/40 hover:bg-[#1A2234] transition-all duration-300 shadow-xl shadow-black/20 group min-h-[140px]">
+    <div className="group-hover:scale-110 transition-transform duration-500 flex items-center justify-center w-full h-full">
+      {children}
+    </div>
+  </div>
+);
 
 export default function About() {
+  // Ensure scroll is at the top when navigating here
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const lorem1 = "Retail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your business Retail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your businessRetail Management Software provides you with exceptional capabilities that will simplify the way you manage";
+  const lorem2 = "all critical aspects of your businessRetail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your businessRetail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your business";
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col bg-white"
+      className="flex flex-col bg-[#060D1A] min-h-screen font-sans selection:bg-brand-primary/30 selection:text-white"
     >
-      {/* Hero Section - Digital Transformation style */}
-      <section className="relative pt-24 pb-32 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
-        {/* Futuristic Background Patterns */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          {/* Tech Circles/Orbits */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-brand-primary/30 rounded-full opacity-20"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-brand-primary/20 rounded-full opacity-30 border-dashed animate-[spin_60s_linear_infinite]"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-brand-primary/10 rounded-full opacity-10 animate-[spin_40s_linear_infinite_reverse]"></div>
-          
-          {/* Glows */}
-          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-primary/40 rounded-full blur-[120px] opacity-20"></div>
-          <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-primary/30 rounded-full blur-[100px] opacity-20"></div>
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex items-center justify-center">
+         {/* Minimalist Grid & Glow Background */}
+        <div className="absolute inset-0 z-0 bg-[#060D1A]">
+          {/* Subtle dotted grid overlay mapping to layout */ }
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_30%,transparent_100%)]"></div>
+          {/* Elegant top ambient glow completely different from the chaotic blurs */}
+          <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-brand-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-white mb-6">About Us</h1>
+            <p className="text-lg text-slate-300 max-w-2xl leading-relaxed">
+              There are many variations of passag of Lorem Ipsum available, but the majority<br className="hidden md:block"/>
+              have sufferedThere are many variations of passag of Lorem Ipsum available.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Who We Are / What We Do */}
+      <section className="py-20 lg:py-28 relative border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
+            {/* Who We Are */}
             <motion.div 
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="text-left"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-bold mb-6 tracking-wide uppercase">
-                We're Powering
-              </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white mb-8 leading-[1.1]">
-                Digital <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-white to-brand-primary bg-[length:200%_auto] animate-gradient-x">
-                  Transformation
-                </span>
-              </h1>
-              <p className="text-xl text-slate-400 mb-10 max-w-lg leading-relaxed font-medium">
-                We put in maximal effort to help you create an exceptional operational experience through intelligent ERP architecture.
+              <h2 className="text-2xl font-bold text-white mb-8">Who We Are</h2>
+              <p className="text-[15px] leading-relaxed text-slate-400 font-medium">
+                {lorem1}
               </p>
-              <button className="group flex items-center gap-3 bg-brand-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-xl shadow-brand-primary/20">
-                Contact Us <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <p className="text-[15px] leading-relaxed text-slate-400 font-medium mt-6">
+                {lorem2}
+              </p>
             </motion.div>
 
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative z-10 rounded-[3rem] overflow-hidden border-4 border-white/5 shadow-2xl skew-x-3 rotate-2">
-                 <img src="https://picsum.photos/seed/tech_future/800/1000" alt="Tech Future" className="w-full h-auto" referrerPolicy="no-referrer" />
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-primary/40 rounded-full blur-2xl animate-pulse"></div>
-              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/20 rounded-full blur-2xl"></div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Company Overview Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-20 items-start">
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-black text-slate-900 mb-8 tracking-tight">Company Overview</h2>
-              <div className="space-y-6 text-slate-600 font-medium leading-relaxed text-lg">
-                <p>
-                  Rapid is a premier global enterprise software firm that has empowered corporations, global enterprises, and start-ups in their digital journey for over nearly three decades.
-                </p>
-                <p>
-                  We deliver innovative solutions to businesses of all sizes, from start-ups to Fortune 500 companies, to help them achieve their goals. Our team of experts has a wide range of experience and skills, and we're always exploring new technologies to stay at the forefront of the industry.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              className="bg-brand-primary rounded-[2.5rem] p-1 shadow-2xl relative group"
-            >
-              <div className="bg-white rounded-[2.2rem] p-8 lg:p-10 flex flex-col items-center">
-                <div className="flex items-center gap-2 mb-6 w-full justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-brand-primary p-2 rounded-lg text-white">
-                      <Linkedin className="w-5 h-5" />
-                    </div>
-                    <span className="font-bold text-slate-800">Let's Connect</span>
-                  </div>
-                </div>
-                
-                <div className="text-center mb-8">
-                  <div className="text-5xl font-black text-slate-900 mb-2">12.7T+</div>
-                  <div className="text-slate-500 font-bold uppercase tracking-widest text-sm">Followers</div>
-                </div>
-
-                <div className="flex items-center gap-4 w-full bg-slate-50 rounded-2xl p-4 border border-slate-100">
-                  <div className="flex -space-x-4">
-                    {[1,2,3].map(i => (
-                      <div key={i} className="w-12 h-12 rounded-full border-4 border-white overflow-hidden shadow-sm">
-                        <img src={`https://picsum.photos/seed/user${i}/100/100`} alt="user" referrerPolicy="no-referrer" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex-grow"></div>
-                  <button className="flex items-center gap-2 bg-brand-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-secondary transition-all shadow-lg shadow-brand-primary/20">
-                    LinkedIn <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Who We Are */}
-      <section className="py-32 bg-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-20">
+            {/* What We Do */}
             <motion.div 
-              initial={{ x: -100, rotate: -10, opacity: 0 }}
-              whileInView={{ x: 0, rotate: 0, opacity: 1 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative w-full max-w-[500px]"
+              className="space-y-6"
             >
-              {/* Circular Professional Collage Effect */}
-              <div className="relative aspect-square rounded-full overflow-hidden border-8 border-white shadow-2xl">
-                 <img src="https://picsum.photos/seed/office_team/800/800" alt="Team" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-              </div>
-              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-primary rounded-full border-4 border-white -mr-8 mt-8 flex items-center justify-center text-white shadow-xl">
-                 <Rocket className="w-10 h-10" />
-              </div>
-              <div className="absolute bottom-10 -left-10 w-20 h-20 bg-brand-primary/20 rounded-full border-4 border-white flex items-center justify-center text-brand-primary shadow-lg backdrop-blur-md">
-                 <Star className="w-8 h-8" />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              className="flex-grow max-w-2xl"
-            >
-              <h2 className="text-4xl font-black text-slate-900 mb-8">Who We Are</h2>
-              <div className="space-y-6 text-slate-600 font-medium leading-relaxed">
-                <p>
-                  Rapid, founded in 1996, is a leading software architecture consulting firm known for its innovative and robust digital solutions. Our team of 150+ full-stack engineers and architects have successfully delivered localized projects globally. We implement your vision into reality using the latest technologies and assisting businesses by using the unmatched expertise of our highly qualified developers.
-                </p>
-                <p>
-                  We are believers of change! A change driven by technology and innovation. Having worked with top-fortune companies and developed numerous on-demand solutions, we have a strong portfolio showcasing our experience. Increase your brand awareness, establish communication with your clients and foster trust using our user-friendly and quality driven enterprise platforms.
-                </p>
-              </div>
+              <h2 className="text-2xl font-bold text-white mb-8">What We Do</h2>
+              <p className="text-[15px] leading-relaxed text-slate-400 font-medium">
+                {lorem1}
+              </p>
+              <p className="text-[15px] leading-relaxed text-slate-400 font-medium mt-6">
+                {lorem2}
+              </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="py-32 bg-brand-dark text-white overflow-hidden relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--color-brand-primary)_0%,_transparent_100%)] opacity-5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-24">
-            <h2 className="text-brand-primary font-black uppercase tracking-widest text-sm mb-4">A Timeline Of Our Journey</h2>
-            <div className="h-1 w-20 bg-brand-primary mx-auto mb-6"></div>
-            <h3 className="text-3xl font-bold opacity-60">The Rapid History</h3>
-          </div>
-
-          <div className="relative">
-            {/* Center Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-brand-primary/30 -translate-x-1/2"></div>
-
-            <div className="space-y-24">
-              {[
-                { year: '1996', title: 'The Genesis', text: 'We started our journey with 5 visionaries working passionately to grow With utmost dedication.', img: 'https://picsum.photos/seed/hist1/400/300' },
-                { year: '2005', title: 'Global Reach', text: 'We reached our first major milestone, expanding services to global markets with 40+ specialized engineers.', img: 'https://picsum.photos/seed/hist2/400/300' },
-                { year: '2012', title: 'Cloud Revolution', text: 'Pioneered cloud-native ERP architectures, setting a new standard for scalability in high-demand industries.', img: 'https://picsum.photos/seed/hist3/400/300' },
-                { year: '2019', title: 'AI Integration', text: 'Started working on Artificial Intelligence and Machine Learning, delivering our first predictive ERP module.', img: 'https://picsum.photos/seed/hist4/400/300' },
-                { year: '2024', title: 'The Future', text: '150+ engineers, serving 40+ countries worldwide, powering next-gen market leaders.', img: 'https://picsum.photos/seed/hist5/400/300' },
-              ].map((item, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className={`flex items-center gap-10 md:gap-20 ${idx % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                >
-                  <div className="w-1/2 text-right">
-                    {idx % 2 === 0 && (
-                      <div className="flex flex-col items-end gap-6 pr-10">
-                        <div className="relative rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl w-full max-w-sm">
-                           <img src={item.img} alt={item.year} className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
-                        </div>
-                        <p className="text-slate-400 font-medium max-w-xs">{item.text}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="w-12 h-12 bg-[#050a18] border-4 border-brand-primary rounded-full flex items-center justify-center text-xs font-black shadow-[0_0_20px_rgba(40,168,224,0.5)]">
-                      {item.year}
-                    </div>
-                  </div>
-
-                  <div className="w-1/2">
-                    {idx % 2 !== 0 && (
-                      <div className="flex flex-col items-start gap-6 pl-10 text-left">
-                        <div className="relative rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl w-full max-w-sm">
-                           <img src={item.img} alt={item.year} className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
-                        </div>
-                        <p className="text-slate-400 font-medium max-w-xs">{item.text}</p>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Global Contact Section (Shared style) */}
-      <section className="py-32 bg-brand-dark overflow-hidden relative">
+      {/* Awards */}
+      <section className="pt-20 pb-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                 <h2 className="text-4xl font-black text-white mb-12">Global Footprint</h2>
-                 <div className="grid sm:grid-cols-2 gap-8 text-slate-400 font-medium uppercase tracking-widest text-[10px]">
-                    {[
-                       { country: 'UNITED STATES', city: 'Silicon Valley', icon: <Globe className="w-4 h-4" /> },
-                       { country: 'UNITED KINGDOM', city: 'London', icon: <Globe className="w-4 h-4" /> },
-                       { country: 'INDIA', city: 'Mumbai', icon: <Globe className="w-4 h-4" /> },
-                       { country: 'AUSTRALIA', city: 'Sydney', icon: <Globe className="w-4 h-4" /> },
-                    ].map((loc, i) => (
-                       <div key={i} className="flex items-center gap-4 group cursor-default">
-                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all">
-                             {loc.icon}
-                          </div>
-                          <div>
-                             <div className="text-white font-bold">{loc.country}</div>
-                             <div className="opacity-60">{loc.city}</div>
-                          </div>
-                       </div>
-                    ))}
-                 </div>
-              </div>
+          <SectionHeader title="Awards" />
+          <LogoGrid>
+            <LogoCard><Trophy className="w-16 h-16 text-[#F59E0B]" /></LogoCard>
+            <LogoCard><Award className="w-16 h-16 text-[#D97706]" /></LogoCard>
+            <LogoCard>
+               <div className="flex flex-col items-center">
+                 <ShieldCheck className="w-14 h-14 text-[#10B981] mb-2" />
+                 <span className="text-[10px] font-bold text-slate-300 tracking-widest text-center uppercase">Top 100<br/>Software</span>
+               </div>
+            </LogoCard>
+            <LogoCard>
+               <div className="flex flex-col items-center">
+                 <Medal className="w-14 h-14 text-[#3B82F6] mb-2" />
+                 <span className="text-[10px] font-bold text-slate-300 tracking-widest text-center uppercase">Best IT<br/>Services</span>
+               </div>
+            </LogoCard>
+            <LogoCard><Star className="w-16 h-16 text-[#FBBF24]" /></LogoCard>
+          </LogoGrid>
+        </div>
+      </section>
 
-              <div className="bg-white rounded-[3rem] p-8 lg:p-12 shadow-2xl">
-                 <h3 className="text-2xl font-black text-slate-900 mb-2">Request Architecture Session</h3>
-                 <p className="text-slate-500 font-medium mb-8">Discuss your digital transformation roadmap.</p>
-                 <form className="space-y-4">
-                    <input type="text" placeholder="Full Name" className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:border-brand-primary transition-all font-medium" />
-                    <input type="email" placeholder="Email Address" className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:border-brand-primary transition-all font-medium" />
-                    <textarea rows={3} placeholder="Tell us about your project" className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:border-brand-primary transition-all font-medium resize-none"></textarea>
-                    <button className="w-full bg-brand-primary text-white py-4 rounded-2xl font-black hover:bg-brand-secondary transition-all shadow-xl shadow-brand-primary/20">
-                       SEND ENQUIRY
-                    </button>
-                 </form>
+      {/* Membership */}
+      <section className="py-12 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader title="Membership" />
+          <LogoGrid>
+            <LogoCard>
+               <div className="flex flex-col items-center">
+                  <span className="text-2xl sm:text-3xl font-black text-slate-200 tracking-tight">BASIS</span>
+               </div>
+            </LogoCard>
+            <LogoCard>
+               <div className="flex flex-col items-center gap-1">
+                  <div className="flex gap-1 justify-center w-full">
+                     <div className="w-4 h-6 border-[3px] border-rose-500 rounded-sm skew-x-[-10deg]"></div>
+                     <div className="w-4 h-6 border-[3px] border-green-500 rounded-sm skew-x-[-10deg]"></div>
+                  </div>
+                  <span className="text-xl font-black text-slate-200 tracking-tighter">BCS</span>
+               </div>
+            </LogoCard>
+            <LogoCard>
+               <span className="text-2xl sm:text-3xl font-bold text-blue-500 italic lowercase tracking-tight">e-Cab</span>
+            </LogoCard>
+            <LogoCard>
+               <span className="text-xl sm:text-2xl font-bold tracking-widest text-[#FF7A00]">BACCO</span>
+            </LogoCard>
+            <LogoCard>
+               <div className="flex flex-col items-center gap-1">
+                  <Crown className="w-8 h-8 text-emerald-600 mb-1" />
+                  <span className="text-xl font-bold text-emerald-600 tracking-widest">DCCI</span>
+               </div>
+            </LogoCard>
+          </LogoGrid>
+        </div>
+      </section>
+
+      {/* Mission / Vision Split Section */}
+      <section className="py-16 my-12 relative w-full">
+        {/* Full width split backgrounds */}
+        <div className="absolute inset-0 flex flex-col md:flex-row w-full h-full z-0 pointer-events-none">
+          <div className="w-full md:w-1/2 h-full bg-[#1e140d]/80 border-r border-white/5"></div>
+          <div className="w-full md:w-1/2 h-full bg-[#0a1a14]/80"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+           <div className="grid md:grid-cols-2 gap-12 md:gap-0">
+              <div className="py-10 md:py-16 md:pr-16 lg:pr-24">
+                 <SectionHeader title="Our Mission" />
+                 <p className="text-[15px] leading-relaxed text-slate-400 font-medium">
+                    Retail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your businessRetail Management Software provides you with exceptional capabilities that will simplify. Retail Management Software provides you with exceptional capabilities that will simplify.
+                 </p>
+              </div>
+              <div className="py-10 md:py-16 md:pl-16 lg:pl-24">
+                 <SectionHeader title="Our Vision" />
+                 <p className="text-[15px] leading-relaxed text-slate-400 font-medium">
+                    Retail Management Software provides you with exceptional capabilities that will simplify the way you manage all critical aspects of your businessRetail Management Software provides you with exceptional capabilities that will simplify. Retail Management Software provides you with exceptional capabilities that will simplify.
+                 </p>
               </div>
            </div>
         </div>
       </section>
-    </motion.div>
-  );
-}
 
-function Star({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-    </svg>
+      {/* Certifications */}
+      <section className="py-12 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader title="Certifications" />
+          <LogoGrid>
+             <LogoCard>
+               <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 rounded-full border-[3px] border-red-500 mb-2 flex items-center justify-center">
+                     <span className="w-4 h-4 bg-green-500 rounded-full"></span>
+                  </div>
+                  <span className="text-[11px] font-bold text-red-500 tracking-wider">NBR</span>
+               </div>
+             </LogoCard>
+             <LogoCard>
+                <div className="border-[4px] border-blue-500 rounded-full w-20 h-20 flex items-center justify-center">
+                   <div className="flex flex-col items-center">
+                     <span className="text-sm font-black text-blue-500 leading-none">ISO</span>
+                     <span className="text-[8px] font-bold text-blue-500 mt-1">9001:2015</span>
+                   </div>
+                </div>
+             </LogoCard>
+             <LogoCard>
+                <div className="border-[2px] border-slate-500 py-3 px-4 text-center flex flex-col items-center">
+                  <Crown className="w-7 h-7 text-slate-400 mb-2" />
+                  <span className="text-xs font-black text-slate-300 tracking-tighter">UKAS</span>
+                </div>
+             </LogoCard>
+             <LogoCard>
+               <span className="text-3xl font-black text-sky-500 italic tracking-tighter">CMMI</span>
+             </LogoCard>
+             <LogoCard>
+               <div className="flex flex-col items-center gap-1">
+                  <Crown className="w-8 h-8 text-[#B48B44] mb-1" />
+                  <span className="text-xl font-bold text-[#B48B44] tracking-widest">DCCI</span>
+               </div>
+             </LogoCard>
+          </LogoGrid>
+        </div>
+      </section>
+
+      {/* Technology Partners */}
+      <section className="py-12 pb-32 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader title="Technology Partners" />
+          <LogoGrid>
+             {/* Google */}
+             <LogoCard>
+               <span className="text-[28px] sm:text-[32px] font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#FBBC05] relative">
+                  G<span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span>
+               </span>
+             </LogoCard>
+             {/* Microsoft */}
+             <LogoCard>
+               <span className="text-xl sm:text-2xl font-semibold text-slate-200 flex items-center gap-3">
+                  <div className="grid grid-cols-2 gap-[3px]">
+                     <div className="w-[10px] h-[10px] bg-[#F25022]"/>
+                     <div className="w-[10px] h-[10px] bg-[#7FBA00]"/>
+                     <div className="w-[10px] h-[10px] bg-[#00A4EF]"/>
+                     <div className="w-[10px] h-[10px] bg-[#FFB900]"/>
+                  </div>
+                  Microsoft
+               </span>
+             </LogoCard>
+             {/* PHP */}
+             <LogoCard>
+               <div className="bg-[#787CB5] text-[#111624] px-5 py-2.5 rounded-full text-2xl font-bold italic tracking-wider leading-none">
+                  php
+               </div>
+             </LogoCard>
+             {/* Oracle */}
+             <LogoCard>
+               <span className="text-2xl sm:text-3xl font-black text-[#F80000] tracking-wider font-sans">
+                  ORACLE
+               </span>
+             </LogoCard>
+             {/* Cisco */}
+             <LogoCard>
+               <div className="flex flex-col items-center text-[#049FD9] gap-1">
+                  <div className="flex items-end justify-center gap-1.5 mb-1 h-8">
+                     <div className="w-1.5 h-3 bg-[#049FD9] rounded-t-sm"></div>
+                     <div className="w-1.5 h-6 bg-[#049FD9] rounded-t-sm"></div>
+                     <div className="w-1.5 h-8 bg-[#049FD9] rounded-t-sm"></div>
+                     <div className="w-1.5 h-4 bg-[#049FD9] rounded-t-sm"></div>
+                     <div className="w-1.5 h-6 bg-[#049FD9] rounded-t-sm"></div>
+                     <div className="w-1.5 h-3 bg-[#049FD9] rounded-t-sm"></div>
+                  </div>
+                  <span className="text-[13px] font-black tracking-[0.2em]">CISCO</span>
+               </div>
+             </LogoCard>
+          </LogoGrid>
+        </div>
+      </section>
+
+    </motion.div>
   );
 }

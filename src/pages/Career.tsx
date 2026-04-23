@@ -1,129 +1,225 @@
-import { MapPin, Clock, ArrowRight, Briefcase, Users, Star, GraduationCap, ChevronRight } from 'lucide-react';
+import { ChevronDown, FileText, UploadCloud, CheckCircle2, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect, ReactNode } from 'react';
+
+// Using exact icons or near equivalents for the Hiring Process
+import { Settings, CheckSquare, Users, Handshake } from 'lucide-react';
+
+const positions = [
+  { id: '1', title: 'Senior .NET Developer', location: 'DUBAI, UAE (ONSITE)', vacancies: 2 },
+  { id: '2', title: 'Frontend Engineer (React)', location: 'REMOTE', vacancies: 1 },
+  { id: '3', title: 'ERP Solutions Architect', location: 'DUBAI, UAE (HYBRID)', vacancies: 1 },
+  { id: '4', title: 'UI/UX Product Designer', location: 'REMOTE', vacancies: 1 },
+  { id: '5', title: 'DevOps & Cloud Security', location: 'REMOTE', vacancies: 2 },
+  { id: '6', title: 'Account Manager', location: 'DUBAI, UAE (ONSITE)', vacancies: 3 },
+];
+
+const hiringProcess = [
+  { title: 'Technical Interview', desc: 'A retail management system is a platform that Integrated several functions modules including', icon: Settings, color: 'text-red-400', bg: 'bg-red-400/10' },
+  { title: 'Practical Test', desc: 'A retail management system is a platform that Integrated several functions modules including', icon: CheckSquare, color: 'text-blue-400', bg: 'bg-blue-400/10' },
+  { title: 'Management Interview', desc: 'A retail management system is a platform that Integrated several functions modules including', icon: Users, color: 'text-amber-400', bg: 'bg-amber-400/10' },
+  { title: 'Final Selection & Onboarding', desc: 'A retail management system is a platform that Integrated several functions modules including', icon: Handshake, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+];
+
+const faqs = [
+  { 
+    question: 'How do I become a Partner?', 
+    answer: 'To become a strategic partner, start by submitting an inquiry through our Contact page. Our ecosystem team will review your profile and reach out within 48 hours for a discovery call to discuss mutual growth opportunities.' 
+  },
+  { 
+    question: 'What are the core requirements to apply?', 
+    answer: 'We look for individuals with a strong technical foundation, a passion for enterprise-grade solutions, and high-growth mindset. Specific role requirements are listed under each opening position box above.' 
+  },
+  { 
+    question: 'How long does the hiring process typically take?', 
+    answer: 'Our standard hiring pipeline consists of four stages: Technical Interview, Practical Assessment, Management Review, and Final Selection. This typically spans 2-3 weeks from initial application to offer.' 
+  },
+  { 
+    question: 'Do you offer remote work opportunities?', 
+    answer: 'Yes, Rapid ERP supports a hybrid and remote-first culture for most technical roles. We have core team members operating globally, ensuring 24/7 support and continuous development cycles.' 
+  },
+  { 
+    question: 'What benefits does Rapid provide?', 
+    answer: 'We offer competitive packages including health insurance, performance-based bonuses, continuous learning stipends, and a modern, high-tech work environment designed for absolute focus and collaboration.' 
+  },
+];
+
+const SectionTitle = ({ title, rightAction }: { title: string, rightAction?: ReactNode }) => (
+  <div className="flex justify-between items-end mb-8">
+    <div className="flex items-center gap-3">
+      <div className="w-1.5 h-6 bg-brand-primary rounded-full"></div>
+      <h2 className="text-2xl font-black text-white tracking-tight leading-none">{title}</h2>
+    </div>
+    {rightAction}
+  </div>
+);
 
 export default function Career() {
-  const jobs = [
-    { id: 'senior-full-stack', title: 'Senior Full Stack Developer', location: 'Remote / Hybrid', type: 'Full-time', dept: 'Engineering', desc: 'Architect and scale our core high-performance systems.' },
-    { id: 'ui-ux-designer', title: 'UI/UX Designer', location: 'On-site', type: 'Full-time', dept: 'Design', desc: 'Craft beautiful, intuitive experiences for enterprise software.' },
-    { id: 'erp-specialist', title: 'ERP Implementation Specialist', location: 'Remote', type: 'Full-time', dept: 'Consulting', desc: 'Guide our largest clients through complex migrations.' },
-    { id: 'tech-project-manager', title: 'Technical Project Manager', location: 'Hybrid', type: 'Full-time', dept: 'Management', desc: 'Lead cross-functional engineering pods to success.' },
-  ];
+  const [openFaqs, setOpenFaqs] = useState<number[]>([3]); // Set 4th item open by default
+
+  const toggleAllFaqs = () => {
+    if (openFaqs.length > 0) {
+      setOpenFaqs([]);
+    } else {
+      setOpenFaqs(faqs.map((_, i) => i));
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col bg-slate-50 relative min-h-screen"
+      className="flex flex-col bg-[#060D1A] min-h-screen font-sans selection:bg-brand-primary/30 selection:text-white"
     >
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-brand-dark">
-        {/* Background Gradients & Effects */}
-        <div className="absolute inset-0 z-0 overflow-hidden text-white">
-           {/* Primary Brand Glows */}
-           <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-brand-primary/20 blur-[120px] rounded-full animate-pulse transition-opacity duration-1000"></div>
-           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 blur-[100px] rounded-full transition-opacity duration-1000"></div>
-           
-           {/* Slanted Geometric Shapes (Matching Image) */}
-           <div className="absolute inset-0 z-0 flex justify-center opacity-40">
-              <div className="relative w-full h-full max-w-7xl">
-                 <div className="absolute top-0 left-[-10%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[-20%]"></div>
-                 <div className="absolute top-0 left-[15%] w-1/3 h-full bg-brand-primary/5 -skew-x-12"></div>
-                 <div className="absolute top-0 left-[50%] w-1/4 h-full bg-brand-primary/10 -skew-x-12 translate-x-[20%]"></div>
-                 <div className="absolute top-0 right-[-10%] w-1/3 h-full bg-brand-primary/15 -skew-x-12 translate-x-[40%]"></div>
-              </div>
-           </div>
-
-           {/* Center Atmospheric Glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_var(--color-brand-primary)_0%,_transparent_70%)] opacity-10"></div>
-           
-           {/* Subtle Grid Pattern Overlay */}
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
+      {/* Dark Theme Header */}
+      <section className="relative pt-32 pb-48 lg:pt-40 lg:pb-56 overflow-hidden flex items-center justify-center">
+         {/* Minimalist Grid & Glow Background */}
+        <div className="absolute inset-0 z-0 bg-[#060D1A]">
+          {/* Subtle dotted grid overlay mapping to layout */ }
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_30%,transparent_100%)]"></div>
+          {/* Elegant top ambient glow completely different from the chaotic blurs */}
+          <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-brand-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-left">
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-brand-primary"></span>
-              Join the Mission
-            </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-              Do the best work of <br className="hidden md:block"/> your life.
-            </h1>
-            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
-              We're assembling a team of relentless problem solvers. Build software that powers global commerce.
+            <h1 className="text-4xl lg:text-5xl font-black text-white mb-6">Career</h1>
+            <p className="text-base lg:text-lg text-slate-300 leading-relaxed font-medium">
+              There are many variations of passag of Lorem Ipsum available, but the majority<br className="hidden md:block"/>
+              have sufferedThere are many variations of passag of Lorem Ipsum available.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Why Work With Us (Bento) */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative -mt-12 z-20">
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { icon: <GraduationCap />, title: "Hyper Growth", color: "text-brand-primary", bg: "bg-brand-primary/5", text: "Continuous learning stipends, dedicated mentorship, and transparent paths to technical or management leadership." },
-            { icon: <Users />, title: "Remote-First Culture", color: "text-emerald-500", bg: "bg-emerald-50", text: "Work from anywhere. We provide top-tier home office equipment and emphasize async execution over meetings." },
-            { icon: <Star />, title: "Elite Compensation", color: "text-brand-primary", bg: "bg-brand-primary/5", text: "Top 90th percentile salaries, meaningful equity packages, and comprehensive Platinum health coverage." },
-          ].map((item, id) => (
+      {/* Opening Positions */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative -mt-32 z-20 pb-20">
+        <SectionTitle title="Opening Position" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {positions.map((job) => (
             <motion.div 
+              key={job.id}
               initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: id * 0.1 + 0.3 }}
-              key={id} className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:-translate-y-1 transition-transform"
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#111624] rounded-2xl shadow-sm border border-white/5 flex flex-col hover:border-brand-primary/40 hover:shadow-lg hover:shadow-brand-primary/10 transition-all duration-300 group"
             >
-              <div className={`w-14 h-14 ${item.bg} ${item.color} rounded-2xl flex items-center justify-center mb-6`}>
-                 {item.icon}
+              <div className="p-8 pb-10 flex flex-col items-start flex-grow">
+                 <span className="text-[11px] font-bold tracking-widest text-slate-400 mb-4">{job.location}</span>
+                 <h3 className="text-xl font-bold text-white mb-8 group-hover:text-brand-primary transition-colors">{job.title}</h3>
+                 <Link 
+                   to={`/career/${job.id}`}
+                   className="inline-block border border-brand-primary text-brand-primary px-5 py-2 rounded-full text-xs font-bold hover:bg-brand-primary hover:text-white transition-colors"
+                 >
+                   APPLY NOW
+                 </Link>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-              <p className="text-slate-600 font-medium leading-relaxed text-sm">
-                {item.text}
-              </p>
+              <div className="border-t border-white/5 p-5 px-8 flex items-center">
+                 <span className="text-[11px] font-bold tracking-widest text-slate-400">VACANCIES <span className="text-white ml-3">{job.vacancies}</span></span>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Job Board */}
-      <section className="py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col sm:flex-row justify-between items-end mb-12">
-          <div>
-            <h2 className="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Open Roles</h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-slate-900 leading-tight">
-              Join the Engineering Pods.
-            </h3>
-          </div>
-        </div>
-        
-        <div className="space-y-4">
-          {jobs.map((job, idx) => (
-            <div key={idx} className="bg-white border border-slate-200 p-8 rounded-3xl hover:shadow-xl hover:shadow-slate-200/50 hover:border-brand-primary/30 transition-all group flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div className="flex-grow">
-                <div className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-3 flex items-center gap-2">
-                  <Briefcase className="w-3.5 h-3.5" />
-                  {job.dept}
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">{job.title}</h3>
-                <p className="text-slate-500 font-medium text-sm mb-4">{job.desc}</p>
-                <div className="flex flex-wrap gap-4 text-sm font-semibold text-slate-600">
-                  <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg"><MapPin className="w-4 h-4 text-slate-400" /> {job.location}</span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg"><Clock className="w-4 h-4 text-slate-400" /> {job.type}</span>
-                </div>
-              </div>
-              <Link 
-                to={`/career/${job.id}`}
-                state={{ job }}
-                className="flex-shrink-0 bg-brand-dark text-white px-6 py-3.5 rounded-xl font-bold hover:bg-brand-primary transition-colors flex items-center gap-2 w-full md:w-auto justify-center"
-              >
-                Apply Now <ChevronRight className="w-4 h-4" />
-              </Link>
-            </div>
+      {/* Hiring Process */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-28">
+        <SectionTitle title="Hiring Process" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {hiringProcess.map((step, idx) => (
+            <motion.div 
+               key={idx}
+               initial={{ y: 20, opacity: 0 }}
+               whileInView={{ y: 0, opacity: 1 }}
+               viewport={{ once: true }}
+               transition={{ delay: idx * 0.1 }}
+               className="bg-[#111624] p-8 rounded-2xl shadow-sm border border-white/5 hover:border-brand-primary/40 hover:shadow-lg hover:shadow-brand-primary/10 transition-all duration-300 group"
+            >
+               <div className={`w-14 h-14 rounded-xl ${step.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                 <step.icon className={`w-7 h-7 ${step.color}`} strokeWidth={1.5} />
+               </div>
+               <h3 className="font-bold text-white text-lg mb-3 group-hover:text-brand-primary transition-colors">{step.title}</h3>
+               <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                 {step.desc}
+               </p>
+            </motion.div>
           ))}
         </div>
       </section>
+
+      {/* FAQs */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-32">
+        <SectionTitle 
+          title="FAQs" 
+          rightAction={
+            <button 
+               onClick={toggleAllFaqs} 
+               className="text-xs font-bold text-brand-primary hover:underline hover:text-brand-secondary transition-colors"
+            >
+              {openFaqs.length > 0 ? 'Close All' : 'Open All'}
+            </button>
+          } 
+        />
+        <div className="space-y-5">
+           {faqs.map((faq, idx) => {
+             const isOpen = openFaqs.includes(idx);
+             return (
+               <div 
+                 key={idx} 
+                 className={`w-full bg-[#111624] rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen ? 'border-brand-primary shadow-sm shadow-brand-primary/10' : 'border-white/5 hover:border-white/20'}`}
+               >
+                 <button 
+                   onClick={() => {
+                     if (isOpen) {
+                       setOpenFaqs(openFaqs.filter(i => i !== idx));
+                     } else {
+                       setOpenFaqs([...openFaqs, idx]);
+                     }
+                   }}
+                   className="w-full flex items-center justify-between p-6 text-left"
+                 >
+                   <span className={`text-sm lg:text-base font-bold transition-colors ${isOpen ? 'text-brand-primary' : 'text-white'}`}>
+                     {faq.question}
+                   </span>
+                   {isOpen ? (
+                     <ChevronUp className="w-5 h-5 text-brand-primary" />
+                   ) : (
+                     <ChevronDown className="w-5 h-5 text-slate-400" />
+                   )}
+                 </button>
+                 <AnimatePresence initial={false}>
+                   {isOpen && (
+                     <motion.div
+                       key={`faq-content-${idx}`}
+                       initial={{ height: 0, opacity: 0 }}
+                       animate={{ height: "auto", opacity: 1 }}
+                       exit={{ height: 0, opacity: 0 }}
+                       transition={{ duration: 0.3, ease: "easeInOut" }}
+                       className="overflow-hidden"
+                     >
+                       <div className="px-6 pb-6 text-sm font-medium leading-relaxed text-slate-400">
+                         <div className="pt-4 border-t border-white/5">{faq.answer}</div>
+                       </div>
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+               </div>
+             )
+           })}
+        </div>
+      </section>
+
     </motion.div>
   );
 }
