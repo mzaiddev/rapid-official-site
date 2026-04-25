@@ -2,17 +2,8 @@ import { X, UploadCloud } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLocation, Link, Navigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-
-// Dark theme form input
-const FormInput = ({ label, type = "text" }: { label: string, type?: string }) => (
-  <div className="relative mb-6">
-    <input 
-      type={type} 
-      className="input-standard" 
-      placeholder={label} 
-    />
-  </div>
-);
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
 
 export default function JobApplication() {
   const { state } = useLocation();
@@ -121,11 +112,11 @@ export default function JobApplication() {
                    </div>
 
                    <form className="space-y-6">
-                      <FormInput label="Full Name" />
-                      <FormInput label="Email Address" type="email" />
-                      <FormInput label="Phone Number" type="tel" />
-                      <FormInput label="Experience" />
-                      <FormInput label="Location" />
+                      <Input label="Full Name" placeholder="Full Name" />
+                      <Input label="Email Address" type="email" placeholder="Email Address" />
+                      <Input label="Phone Number" type="tel" placeholder="Phone Number" />
+                      <Input label="Experience" placeholder="Experience" />
+                      <Input label="Location" placeholder="Location" />
 
                       <div className="mb-8 pt-2">
                         <label className="block text-sm text-slate-400 mb-4 ml-1 font-medium">Upload CV</label>
@@ -138,9 +129,9 @@ export default function JobApplication() {
                         </div>
                       </div>
 
-                      <button type="button" className="w-full bg-brand-primary text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-brand-secondary transition-colors shadow-lg hover:shadow-brand-primary/25 active:scale-[0.98]">
+                      <Button type="button" variant="primary" className="w-full uppercase tracking-wider shadow-xl shadow-brand-primary/20">
                          Submit Application
-                      </button>
+                      </Button>
                    </form>
                 </div>
             </div>

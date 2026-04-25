@@ -1,34 +1,30 @@
-import { MapPin, Phone, Mail, ChevronDown } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
+import { Textarea } from '../components/ui/Textarea';
+import { Select } from '../components/ui/Select';
 
 // Reusable styling components for the form
 const FormField = ({ label, type = "text", placeholder, isTextarea = false, isSelect = false }: { label: string, type?: string, placeholder?: string, isTextarea?: boolean, isSelect?: boolean }) => {
   return (
     <div className="relative group">
       {isTextarea ? (
-        <textarea 
-          rows={4} 
-          className="input-standard resize-none" 
+        <Textarea 
           placeholder={label} 
-        ></textarea>
+        />
       ) : isSelect ? (
-        <div className="relative">
-          <select className="input-standard appearance-none cursor-pointer [&>option]:bg-[#1A2234] [&>option]:text-white">
-            <option value="" disabled selected hidden>{label}</option>
-            <option value="erp">ERP Solutions</option>
-            <option value="web">Web Development</option>
-            <option value="cloud">Cloud Integration</option>
-            <option value="other">Other Inquiry</option>
-          </select>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-             <ChevronDown className="w-4 h-4" />
-          </div>
-        </div>
+        <Select defaultValue="">
+          <option value="" disabled hidden>{label}</option>
+          <option value="erp">ERP Solutions</option>
+          <option value="web">Web Development</option>
+          <option value="cloud">Cloud Integration</option>
+          <option value="other">Other Inquiry</option>
+        </Select>
       ) : (
-        <input 
+        <Input 
           type={type} 
-          className="input-standard" 
           placeholder={label} 
         />
       )}
@@ -133,9 +129,9 @@ export default function Contact() {
                         <FormField label="Message" isTextarea />
                         
                         <div className="pt-4">
-                           <button type="button" className="w-full bg-[#23A8E0] text-white py-3.5 rounded-sm font-bold text-[15px] hover:bg-opacity-90 transition-all shadow-lg shadow-[#23A8E0]/20 uppercase tracking-widest active:scale-[0.98]">
+                           <Button type="button" variant="primary" className="w-full h-14 bg-[#23A8E0] hover:bg-[#1f96c9] border-none text-[15px] uppercase tracking-widest shadow-xl shadow-[#23A8E0]/20">
                                SUBMIT
-                           </button>
+                           </Button>
                         </div>
                     </form>
                 </div>

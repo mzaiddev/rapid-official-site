@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { 
-  Briefcase, Globe, Building2, Users, CheckCircle, Smile, 
+  Briefcase, Globe, Building2, Users, CheckCircle, CheckCircle2, Smile, 
   Languages, Settings, ArrowUpCircle, Link as LinkIcon,
   ShoppingCart, Truck, Car, Stethoscope, Pill, Hotel, Utensils,
-  GraduationCap, Factory, Droplet, ArrowRight, Activity, Zap, Shield, ChevronRight, Star, Cpu, Server, Network, Layers, BarChart3, LineChart, PieChart
+  GraduationCap, Factory, Droplet, ArrowRight, Activity, Zap, Shield, ChevronRight, Star, Cpu, Server, Network, Layers, BarChart3, LineChart, PieChart,
+  MessageCircle, Shirt, Package
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Button } from '../components/ui/Button';
 
 export default function Home() {
   const stats = [
@@ -22,13 +24,19 @@ export default function Home() {
     { icon: <LinkIcon className="w-6 h-6 text-brand-primary" />, title: 'API Integration', description: 'Unified data layers seamlessly sync with external vendors and legacy infrastructures.' }
   ];
 
-  const products = [
-    { icon: <ShoppingCart />, title: 'Retail & POS ERP', tags: 'On-Premises · Cloud' },
-    { icon: <Car />, title: 'Automotive ERP', tags: 'On-Premises · Cloud' },
-    { icon: <Truck />, title: 'Distribution ERP', tags: 'Cloud · Hybrid' },
-    { icon: <Stethoscope />, title: 'Healthcare ERP', tags: 'On-Premises · Hybrid' },
-    { icon: <Hotel />, title: 'Hospitality ERP', tags: 'Cloud · Hybrid' },
-    { icon: <Factory />, title: 'Manufacturing ERP', tags: 'On-Premises · Cloud' }
+  const industries = [
+    { icon: <ShoppingCart />, title: 'Retail' },
+    { icon: <Truck />, title: 'Distribution' },
+    { icon: <Car />, title: 'Automotive' },
+    { icon: <Hotel />, title: 'Hospitality' },
+    { icon: <LineChart />, title: 'Financial' },
+    { icon: <Stethoscope />, title: 'Healthcare' },
+    { icon: <Pill />, title: 'Pharmaceutical' },
+    { icon: <Shirt />, title: 'Garment' },
+    { icon: <GraduationCap />, title: 'Education' },
+    { icon: <Factory />, title: 'Manufacturing' },
+    { icon: <Package />, title: 'Logistics' },
+    { icon: <Droplet />, title: 'Oil and Gas' }
   ];
 
   const testimonials = [
@@ -72,23 +80,43 @@ export default function Home() {
                 Rapid OS Core 3.0 Released
               </div>
               
-              <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.05]">
-                Command Your <br />
-                Business With <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-400">Absolute Clarity.</span>
+              <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1]">
+                Transforming Ideas into <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-400">Scalable Digital Solutions.</span>
               </h1>
               
               <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-xl font-medium">
-                Experience unparalleled operational control, workflow automation, and real-time intelligence tailored for modern global enterprises.
+                We deliver AI-powered, secure, and scalable IT solutions including Web, Mobile, ERP, and Cloud services to help businesses grow and innovate.
               </p>
               
               <div className="flex flex-wrap gap-4 items-center">
-                <Link to="/contact" className="px-8 py-4 bg-white text-brand-dark rounded-full font-extrabold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 flex items-center gap-2">
-                  Start Free Trial <ArrowRight className="w-5 h-5" />
+                <Link to="/contact">
+                  <Button variant="secondary" className="gap-2">
+                    Get Started <ArrowRight className="w-5 h-5" />
+                  </Button>
                 </Link>
-                <Link to="/services" className="px-8 py-4 border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-all flex items-center gap-2 backdrop-blur-sm">
-                  View Solutions
+                <Link to="/contact">
+                  <Button variant="outline">
+                    Book a Demo
+                  </Button>
                 </Link>
+               
+              </div>
+
+              {/* Added Bullets */}
+              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                {[
+                  "No Credit Card Required",
+                  "Instant Access",
+                  "Easy Upgrade"
+                ].map((text, i) => (
+                  <div key={i} className="flex items-center gap-2.5 group">
+                    <div className="w-5 h-5 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-400 group-hover:text-white transition-colors duration-300">{text}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
 
@@ -230,50 +258,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product Modules - Premium High-Contrast UI Cards */}
+      {/* Industries We Work - Advanced Side-by-Side Layout */}
       <section className="py-32 relative border-t border-white/5 bg-[#030812] overflow-hidden">
-        {/* Cinematic light leaks */}
+        {/* Immersive background elements */}
         <div className="absolute left-[-10%] top-1/2 w-[800px] h-[800px] bg-brand-primary/5 blur-[150px] rounded-full pointer-events-none"></div>
         <div className="absolute right-0 top-0 w-1/3 h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-3 mb-4">
-                 <div className="w-1.5 h-6 bg-brand-primary rounded-sm"></div>
-                 <h2 className="text-brand-primary font-bold tracking-widest uppercase text-sm">Industry Solutions</h2>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            {/* Left Portion: Heading and Context */}
+            <div className="lg:col-span-4 space-y-8 sticky top-32">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-1.5 h-8 bg-brand-primary rounded-full"></div>
+                  <h2 className="text-brand-primary font-bold tracking-[0.2em] uppercase text-xs">Industries We Work</h2>
+                </div>
+                <h3 className="text-4xl md:text-5xl font-black text-white leading-[1.1] tracking-tight">
+                  Helping Businesses <br />
+                  <span className="text-slate-500">By Popular Industry area</span>
+                </h3>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                Specialized technology for <br className="hidden md:block" />
-                <span className="opacity-50">vertical markets.</span>
-              </h3>
+              
+              <p className="text-lg text-slate-400 font-medium leading-relaxed max-w-sm">
+                Our suite of intelligent ERP modules are purpose-built to solve the unique operational complexities of diverse vertical markets.
+              </p>
+              
+              <div className="pt-4">
+                <Link to="/industries">
+                  <Button variant="outline" className="group gap-3">
+                    View All Industries
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <Link to="/products" className="hidden sm:inline-flex items-center gap-2 font-bold text-slate-300 hover:text-white transition-colors hover:translate-x-1 duration-300 pb-2">
-              Explore Available Modules <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product, idx) => (
-              <Link to="/services" key={idx} className="bg-[#0A101C] rounded-3xl p-8 border border-white/5 hover:border-white/10 group flex flex-col transition-all duration-300 relative overflow-hidden">
-                {/* Dynamic hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/0 via-brand-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="flex items-start gap-5 mb-8 relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-[#111A2D] border border-white/5 text-brand-primary flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all duration-300 shadow-inner">
-                    {product.icon}
-                  </div>
-                  <div className="pt-2">
-                    <h4 className="font-bold text-xl text-white transition-colors tracking-wide">{product.title}</h4>
-                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mt-1.5 block">{product.tags}</span>
-                  </div>
-                </div>
-                <div className="mt-auto pt-6 border-t border-white/5 flex justify-between items-center text-sm font-bold text-slate-400 group-hover:text-white relative z-10 transition-colors">
-                  View Specifications
-                  <ChevronRight className="w-5 h-5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                </div>
-              </Link>
-            ))}
+            {/* Right Portion: Seamless Industry Grid */}
+            <div className="lg:col-span-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                {industries.map((industry, idx) => (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    className="aspect-square bg-[#0A101C] rounded-[24px] border border-white/5 hover:border-brand-primary/30 hover:bg-brand-primary/[0.03] transition-all duration-300 p-6 flex flex-col items-center justify-center text-center group shadow-2xl"
+                  >
+                    <div className="w-16 h-16 rounded-2xl bg-[#0F172A] border border-white/5 flex items-center justify-center text-brand-primary group-hover:text-white group-hover:bg-brand-primary transition-all duration-500 mb-5 relative">
+                      {/* Inner glow for icon box */}
+                      <div className="absolute inset-0 rounded-2xl bg-brand-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="relative z-10 scale-110">
+                        {industry.icon}
+                      </div>
+                    </div>
+                    <h4 className="text-[15px] font-extrabold text-slate-200 group-hover:text-white transition-colors tracking-wide">
+                      {industry.title}
+                    </h4>
+                    
+                    {/* Subtle bottom indicator */}
+                    <div className="mt-4 w-6 h-1 bg-white/5 rounded-full group-hover:w-12 group-hover:bg-brand-primary transition-all duration-300"></div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
